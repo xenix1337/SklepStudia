@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Sklep.Database;
 
 namespace Sklep
 {
@@ -15,6 +16,10 @@ namespace Sklep
         public MainWindow()
         {
             InitializeComponent();
+
+            // TODO: Remove this sample code as it's just for tests
+            DatabaseConnection db = new DatabaseConnection();
+            db.Connect(DatabaseConnectionSettings.FromEnv());
         }
     }
 }
