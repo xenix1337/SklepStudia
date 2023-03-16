@@ -10,7 +10,7 @@ namespace Sklep.Utils
     {
         public static bool validateBarcode(string code)
         {
-            if (code.Length != 13 || int.TryParse(code, out _))
+            if (code.Length != 13 || !code.All(char.IsDigit))
             {
                 return false;
             }
