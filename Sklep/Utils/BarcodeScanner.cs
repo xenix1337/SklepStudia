@@ -15,7 +15,7 @@ namespace Sklep.Utils
 {
     public class BarcodeScanner
     {
-        public event EventHandler<string> CodeScanned; // event
+        public event EventHandler<string> CodeScanned;
         public PictureBox pictureBox = null;
         public int cameraIndex = 0;
 
