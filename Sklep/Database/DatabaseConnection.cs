@@ -7,6 +7,13 @@ namespace Sklep.Database
     class DatabaseConnection
     {
         public NpgsqlConnection Connection { get; private set; } = null;
+        // First created connection is saved as Main, to allow easier access
+        public static DatabaseConnection Main { get; private set; } = null;
+
+        public DatabaseConnection()
+        {
+            if (Main == null) Main = this;
+        }
 
         public bool Connect(DatabaseConnectionSettings settings)
         {

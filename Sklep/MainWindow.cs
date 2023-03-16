@@ -26,15 +26,24 @@ namespace Sklep
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            // TODO: Remove this sample code as it's just for tests
+        private void zarejestrujNowyProduktToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new NewProductWindow();
+            DialogResult result = w.ShowDialog();
+            if (result == DialogResult.OK) statusStripLabel.Text = "Zarejestrowano nowy produkt w bazie";
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
             DatabaseConnection db = new DatabaseConnection();
             db.Connect(DatabaseConnectionSettings.FromEnv());
             barcodeScanner.pictureBox = pictureBox1;
             barcodeScanner.pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
             barcodeScanner.startScanning();
-
+            statusStripLabel.Text = "Gotowy";
         }
 
         private void BarcodeScanner_CodeScanned(object sender, string code)
