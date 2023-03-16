@@ -16,20 +16,23 @@ namespace Sklep.Utils
     public class BarcodeScanner
     {
         public event EventHandler<string> CodeScanned; // event
+        public PictureBox pictureBox = null;
+        public int cameraIndex = 0;
 
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice videoCaptureDevice;
         ContrastCorrection filter;
         BarcodeReader reader;
-        public PictureBox pictureBox = null;
-
-        public void startScanning()
+        public BarcodeScanner()
         {
-            filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice); ;
+            videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[cameraIndex].MonikerString);
             filter = new ContrastCorrection(60);
             reader = new BarcodeReader();
             reader.Options.TryHarder = true;
-            videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[0].MonikerString);
+        }
+        public void startScanning()
+        {
             videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             videoCaptureDevice.Start();
         }
@@ -39,26 +42,25 @@ namespace Sklep.Utils
             filter.ApplyInPlace(bitmap);
             var result = reader.Decode(bitmap);
             if(pictureBox != null)
+            {
                 pictureBox.Image = bitmap;
-            if(result != null)
+            }
+            if(result != null && EANValidator.validateBarcode(result.ToString()))
             {
                 OnScanningCompleted(result.ToString());
             }
         }
 
-        protected virtual void OnScanningCompleted(string code) //protected virtual method
+        protected virtual void OnScanningCompleted(string code)
         {
-            //if ProcessCompleted is not null then call delegate
             CodeScanned?.Invoke(this,code);
         }
         public void stopScanning()
         {
-            if (videoCaptureDevice != null)
+            if (videoCaptureDevice != null && videoCaptureDevice.IsRunning)
             {
-                if (videoCaptureDevice.IsRunning)
-                {
-                    videoCaptureDevice.Stop();
-                }
+                videoCaptureDevice.NewFrame -= VideoCaptureDevice_NewFrame;
+                videoCaptureDevice.Stop();
             }
         }
 

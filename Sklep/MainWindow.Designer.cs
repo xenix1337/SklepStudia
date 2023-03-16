@@ -54,7 +54,6 @@ namespace Sklep
             this.AddProductButton.TabIndex = 2;
             this.AddProductButton.Text = "Dodaj Produkt";
             this.AddProductButton.UseVisualStyleBackColor = true;
-            this.AddProductButton.Click += new System.EventHandler(this.AddProductButton_Click);
             // 
             // finalizationButton
             // 
@@ -64,7 +63,6 @@ namespace Sklep
             this.finalizationButton.TabIndex = 3;
             this.finalizationButton.Text = "Zapłać";
             this.finalizationButton.UseVisualStyleBackColor = true;
-            this.finalizationButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // pictureBox1
             // 
@@ -114,7 +112,6 @@ namespace Sklep
             this.Name = "MainWindow";
             this.Text = "Sklep";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

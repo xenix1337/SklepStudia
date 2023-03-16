@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Sklep.Utils
 {
-    public class EANValidator
+    public static class EANValidator
     {
-        public bool validate(string code)
+        public static bool validateBarcode(string code)
         {
-            if (code.Length != 13)
+            if (code.Length != 13 || int.TryParse(code, out _))
             {
                 return false;
             }
@@ -21,17 +21,17 @@ namespace Sklep.Utils
             {
                 if (i % 2 == 0)
                 {
-                    sum += int.Parse(code[i].ToString());
+                    sum += code[i] - '0';
                 }
                 else
                 {
-                    sum += int.Parse(code[i].ToString()) * 3;
+                    sum += (code[i] - '0') * 3;
                 }
             }
 
             int checkDigit = (10 - (sum % 10)) % 10;
 
-            return checkDigit == int.Parse(code[12].ToString());
+            return checkDigit == code[12] - '0';
         }
     }
 }

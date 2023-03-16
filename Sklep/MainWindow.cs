@@ -39,33 +39,15 @@ namespace Sklep
 
         private void BarcodeScanner_CodeScanned(object sender, string code)
         {
-            EANValidator validator = new EANValidator();
-            if (validator.validateBarcode(code))
-            {
-                barCodeTextBox.Invoke(new MethodInvoker(delegate ()
-                {
-                    barCodeTextBox.Text = code;
-                }));
-            }
-        }
-        private void AddProductButton_Click(object sender, EventArgs e)
-        {
-            //MessageBox.Show(barCodeTextBox.Text);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
+            barCodeTextBox.Invoke(new MethodInvoker(delegate ()
+            {           
+                barCodeTextBox.Text = code;
+            }));
         }
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             barcodeScanner.stopScanning();
-        }
-
-        private void MainWindow_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
