@@ -7,7 +7,7 @@ using AForge.Video;
 using AForge.Imaging;
 using AForge.Math;
 using AForge.Video.DirectShow;
-using ZXing;
+using ZXing.Windows.Compatibility;
 using AForge.Imaging.Filters;
 using System.Drawing;
 using System.Windows.Forms;
