@@ -60,7 +60,7 @@ namespace Sklep.Utils
             if (videoCaptureDevice != null && videoCaptureDevice.IsRunning)
             {
                 videoCaptureDevice.NewFrame -= VideoCaptureDevice_NewFrame;
-                videoCaptureDevice.Stop();
+                videoCaptureDevice.SignalToStop();
             }
         }
 
