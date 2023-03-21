@@ -30,7 +30,7 @@ namespace Sklep.Database
             } 
             catch(SocketException ex)
             {
-                Console.WriteLine("Błąd połączenia z bazą (brak internetu?)");
+                Console.WriteLine("Błąd połączenia z bazą (brak internetu?)\n"+ex.Message);
                 Connection = null;
                 return false;
             }
