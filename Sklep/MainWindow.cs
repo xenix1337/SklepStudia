@@ -44,7 +44,7 @@ namespace Sklep
         private void listaProduktówToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var w = new ListProductsWindow();
-            w.Show();
+            w.ShowDialog();
         }
     }
 }

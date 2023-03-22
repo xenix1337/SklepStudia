@@ -34,17 +34,15 @@
             // 
             // productDataGridView
             // 
-            productDataGridView.AllowUserToAddRows = false;
-            productDataGridView.AllowUserToDeleteRows = false;
             productDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             productDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             productDataGridView.Location = new System.Drawing.Point(0, 0);
             productDataGridView.Name = "productDataGridView";
-            productDataGridView.ReadOnly = true;
-            productDataGridView.RowHeadersWidth = 100;
+            productDataGridView.RowHeadersWidth = 20;
             productDataGridView.RowTemplate.Height = 29;
             productDataGridView.Size = new System.Drawing.Size(958, 684);
             productDataGridView.TabIndex = 0;
+            productDataGridView.CellValueChanged += productDataGridView_CellValueChanged;
             // 
             // ListProductsWindow
             // 
@@ -54,6 +52,7 @@
             Controls.Add(productDataGridView);
             Name = "ListProductsWindow";
             Text = "Lista produktów";
+            FormClosing += ListProductsWindow_FormClosing;
             Load += ListProductsWindow_Load;
             ((System.ComponentModel.ISupportInitialize)productDataGridView).EndInit();
             ResumeLayout(false);
