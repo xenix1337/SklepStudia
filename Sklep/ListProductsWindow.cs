@@ -56,7 +56,8 @@ namespace Sklep
                     DataSource = db.Categories.Local.ToBindingList(),
                     ValueMember = "Id",
                     DisplayMember = "Name",
-                    DataPropertyName = "CategoryID"
+                    DataPropertyName = "CategoryID",
+                    Width = 200
                 }
             };
 
