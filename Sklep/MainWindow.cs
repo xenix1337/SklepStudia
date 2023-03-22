@@ -31,7 +31,7 @@ namespace Sklep
         private void BarcodeScanner_CodeScanned(object sender, string code)
         {
             barCodeTextBox.Invoke(new MethodInvoker(delegate ()
-            {           
+            {
                 barCodeTextBox.Text = code;
             }));
         }
@@ -39,6 +39,12 @@ namespace Sklep
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             barcodeScanner.stopScanning();
+        }
+
+        private void listaProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListProductsWindow();
+            w.Show();
         }
     }
 }
