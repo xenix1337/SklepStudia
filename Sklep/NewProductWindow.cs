@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using Sklep.Models;
+using Microsoft.EntityFrameworkCore;
 using Sklep.Database;
+using Sklep.Database.Models;
+using Sklep.Utils;
 
 namespace Sklep
 {
@@ -35,15 +33,22 @@ namespace Sklep
 
         private void addProductButton_Click(object sender, EventArgs e)
         {
-            NewProductModel newProduct = new NewProductModel();
-            newProduct.barcode = kodKreskowyTextBox.Text;
-            newProduct.shortName = nazwaKrotkaTextBox.Text;
-            newProduct.longName = nazwaDlugaTextBox.Text;
-            newProduct.price = double.Parse(cenaTextBox.Text);
-            newProduct.supplierID = dostawcaComboBox.SelectedIndex; // TODO: ID
-            var category = ((IdNameListEntry)kategoriaComboBox.SelectedItem);
-            newProduct.categoryID = category?.id;
-            AddNewWindowToDatabase(newProduct);
+            Product newProduct = new Product {
+                Barcode = kodKreskowyTextBox.Text,
+                ShortName = nazwaKrotkaTextBox.Text,
+                LongName = nazwaDlugaTextBox.Text,
+                Price = double.Parse(cenaTextBox.Text),
+                CategoryId = (kategoriaComboBox.SelectedItem as ProductCategory)?.Id
+            };
+
+            using(var db = new DatabaseContext())
+            {
+                db.Products.Add(newProduct);
+                db.SaveChanges();
+            }
+
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void LoadSuppliersList()
@@ -54,40 +59,22 @@ namespace Sklep
         private void LoadCategoriesList()
         {
             kategoriaComboBox.Items.Clear();
-            kategoriaComboBox.Items.Add(new IdNameListEntry(null, "[NIEOKREŚLONA]"));
+            kategoriaComboBox.Items.Add("");
             kategoriaComboBox.SelectedIndex = 0;
 
-            var connection = DatabaseConnection.Main.Connection;
-            var command = new Npgsql.NpgsqlCommand("SELECT id_kategorii, nazwa FROM kategorie_produktow;", connection);
-            var reader = command.ExecuteReader();
-            while(reader.Read())
+            using (var db = new DatabaseContext())
             {
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                kategoriaComboBox.Items.Add(new IdNameListEntry(id, name));
+                foreach (var category in db.Categories)
+                {
+                    kategoriaComboBox.Items.Add(category);
+                }
             }
-            reader.Close();
-        }
-
-        private void AddNewWindowToDatabase(NewProductModel model)
-        {
-            var connection = DatabaseConnection.Main.Connection;
-            var command = model.GetInsertCommand(connection);
-            int result = command.ExecuteNonQuery();
-            if(result <= 0)
-            {
-                MessageBox.Show("Błąd zapisu produktu do bazy", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            DialogResult = DialogResult.OK;
-            Close();
         }
 
         private void ValidateBarcode()
         {
             bool valid = true;
-            // TODO: Validate barcode in BarcodeValidator
-            //if (!BarcodeValidator.Validate(kodKreskowyTextBox.Text)) valid = false;
+            if (!EANValidator.validateBarcode(kodKreskowyTextBox.Text)) valid = false;
             
             kodKreskowyTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
             validField[0] = valid;
