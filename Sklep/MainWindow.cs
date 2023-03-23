@@ -1,5 +1,7 @@
-﻿using Sklep.Utils;
+﻿using Sklep.Database;
+using Sklep.Utils;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Sklep
@@ -7,6 +9,8 @@ namespace Sklep
     public partial class MainWindow : Form
     {
         BarcodeScanner barcodeScanner = new BarcodeScanner();
+        //DatabaseContext db = new DatabaseContext();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -21,6 +25,7 @@ namespace Sklep
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            //db.Products.Load();
             barcodeScanner.pictureBox = pictureBox1;
             barcodeScanner.pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
@@ -31,7 +36,7 @@ namespace Sklep
         private void BarcodeScanner_CodeScanned(object sender, string code)
         {
             barCodeTextBox.Invoke(new MethodInvoker(delegate ()
-            {           
+            {
                 barCodeTextBox.Text = code;
             }));
         }
@@ -39,6 +44,11 @@ namespace Sklep
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             barcodeScanner.stopScanning();
+        }
+
+        private void AddProductButton_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
