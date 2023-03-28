@@ -6,7 +6,6 @@ namespace Sklep
 {
     public partial class MainWindow : Form
     {
-        BarcodeScanner barcodeScanner = new BarcodeScanner();
         public MainWindow()
         {
             InitializeComponent();
@@ -21,10 +20,12 @@ namespace Sklep
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            barcodeScanner.pictureBox = pictureBox1;
-            barcodeScanner.pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
-            barcodeScanner.startScanning();
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+
+            Program.barcodeScanner = new BarcodeScanner();
+            Program.barcodeScanner.pictureBoxes.Push(pictureBox1);
+            Program.barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
+            Program.barcodeScanner.startScanning();
             statusStripLabel.Text = "Gotowy";
         }
 
@@ -38,7 +39,7 @@ namespace Sklep
 
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            barcodeScanner.stopScanning();
+            Program.barcodeScanner.stopScanning();
         }
     }
 }

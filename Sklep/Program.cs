@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sklep.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace Sklep
         /// <summary>
         /// Główny punkt wejścia dla aplikacji.
         /// </summary>
+
+        public static BarcodeScanner barcodeScanner;
+
         [STAThread]
         static void Main()
         {

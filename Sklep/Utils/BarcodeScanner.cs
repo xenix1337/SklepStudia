@@ -16,7 +16,7 @@ namespace Sklep.Utils
     public class BarcodeScanner
     {
         public event EventHandler<string> CodeScanned;
-        public PictureBox pictureBox = null;
+        public Stack<PictureBox> pictureBoxes = new Stack<PictureBox>();
         public int cameraIndex = 0;
 
         FilterInfoCollection filterInfoCollection;
@@ -41,9 +41,9 @@ namespace Sklep.Utils
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
             filter.ApplyInPlace(bitmap);
             var result = reader.Decode(bitmap);
-            if(pictureBox != null)
+            if(pictureBoxes.Count > 0)
             {
-                pictureBox.Image = bitmap;
+                pictureBoxes.Peek().Image = bitmap;
             }
             if(result != null && EANValidator.validateBarcode(result.ToString()))
             {
