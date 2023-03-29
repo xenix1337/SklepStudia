@@ -15,6 +15,7 @@ namespace Sklep
         private static readonly Color defaultBackgroundColor = SystemColors.Window;
         private static readonly Color invalidBackgroundColor = Color.FromArgb(255, 66, 66);
         private bool[] validField = new bool[4];
+
         public NewProductWindow()
         {
             InitializeComponent();
@@ -29,11 +30,24 @@ namespace Sklep
             ValidateShortName();
             ValidateLongName();
             ValidatePrice();
+
+            scannerPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            Program.barcodeScanner.pictureBoxes.Push(scannerPictureBox);
+            Program.barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
+        }
+
+        private void BarcodeScanner_CodeScanned(object sender, string code)
+        {
+            kodKreskowyTextBox.Invoke(() =>
+            {
+                kodKreskowyTextBox.Text = code;
+            });
         }
 
         private void addProductButton_Click(object sender, EventArgs e)
         {
-            Product newProduct = new Product {
+            Product newProduct = new Product
+            {
                 Barcode = kodKreskowyTextBox.Text,
                 ShortName = nazwaKrotkaTextBox.Text,
                 LongName = nazwaDlugaTextBox.Text,
@@ -41,7 +55,7 @@ namespace Sklep
                 CategoryId = (kategoriaComboBox.SelectedItem as ProductCategory)?.Id
             };
 
-            using(var db = new DatabaseContext())
+            using (var db = new DatabaseContext())
             {
                 db.Products.Add(newProduct);
                 db.SaveChanges();
@@ -75,7 +89,7 @@ namespace Sklep
         {
             bool valid = true;
             if (!EANValidator.validateBarcode(kodKreskowyTextBox.Text)) valid = false;
-            
+
             kodKreskowyTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
             validField[0] = valid;
             UpdateButtonEnabled();
@@ -139,13 +153,20 @@ namespace Sklep
 
         void UpdateButtonEnabled()
         {
-            if(validField[0] && validField[1] && validField[2] && validField[3])
+            if (validField[0] && validField[1] && validField[2] && validField[3])
             {
                 addProductButton.Enabled = true;
-            } else
+            }
+            else
             {
                 addProductButton.Enabled = false;
             }
+        }
+
+        private void NewProductWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Program.barcodeScanner.CodeScanned -= BarcodeScanner_CodeScanned;
+            Program.barcodeScanner.pictureBoxes.Pop();
         }
     }
 }
