@@ -18,6 +18,7 @@ namespace Sklep.Utils
         public event EventHandler<string> CodeScanned;
         public PictureBox pictureBox = null;
         public int cameraIndex = 0;
+        DateTime lastScanTime = DateTime.Now;
 
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice videoCaptureDevice;
@@ -45,8 +46,9 @@ namespace Sklep.Utils
             {
                 pictureBox.Image = bitmap;
             }
-            if(result != null && EANValidator.validateBarcode(result.ToString()))
+            if(result != null && EANValidator.validateBarcode(result.ToString()) && DateTime.Now.Subtract(lastScanTime).TotalSeconds > 2)
             {
+                lastScanTime = DateTime.Now;
                 OnScanningCompleted(result.ToString());
             }
         }

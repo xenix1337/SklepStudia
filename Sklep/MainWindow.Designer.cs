@@ -29,6 +29,7 @@ namespace Sklep
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             barCodeTextBox = new System.Windows.Forms.TextBox();
             AddProductButton = new System.Windows.Forms.Button();
             finalizationButton = new System.Windows.Forms.Button();
@@ -38,13 +39,17 @@ namespace Sklep
             programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             produktyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujNowyProduktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            listaProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            listView1 = new System.Windows.Forms.ListView();
+            barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            listOfProducts = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)barcodeScannerBindingSource).BeginInit();
             SuspendLayout();
             // 
             // barCodeTextBox
@@ -109,7 +114,7 @@ namespace Sklep
             // 
             // produktyToolStripMenuItem
             // 
-            produktyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { zarejestrujNowyProduktToolStripMenuItem });
+            produktyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { zarejestrujNowyProduktToolStripMenuItem, listaProduktówToolStripMenuItem });
             produktyToolStripMenuItem.Name = "produktyToolStripMenuItem";
             produktyToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             produktyToolStripMenuItem.Text = "Produkty";
@@ -120,6 +125,13 @@ namespace Sklep
             zarejestrujNowyProduktToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             zarejestrujNowyProduktToolStripMenuItem.Text = "Zarejestruj nowy produkt";
             zarejestrujNowyProduktToolStripMenuItem.Click += zarejestrujNowyProduktToolStripMenuItem_Click;
+            // 
+            // listaProduktówToolStripMenuItem
+            // 
+            listaProduktówToolStripMenuItem.Name = "listaProduktówToolStripMenuItem";
+            listaProduktówToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            listaProduktówToolStripMenuItem.Text = "Lista produktów";
+            listaProduktówToolStripMenuItem.Click += listaProduktówToolStripMenuItem_Click;
             // 
             // raportyToolStripMenuItem
             // 
@@ -144,20 +156,29 @@ namespace Sklep
             statusStripLabel.Size = new System.Drawing.Size(205, 20);
             statusStripLabel.Text = "Trwa łączenie z bazą danych...";
             // 
-            // listView1
+            // barcodeScannerBindingSource
             // 
-            listView1.Location = new System.Drawing.Point(471, 50);
-            listView1.Name = "listView1";
-            listView1.Size = new System.Drawing.Size(580, 532);
-            listView1.TabIndex = 6;
-            listView1.UseCompatibleStateImageBehavior = false;
+            barcodeScannerBindingSource.DataSource = typeof(Utils.BarcodeScanner);
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // listOfProducts
+            // 
+            listOfProducts.Location = new System.Drawing.Point(471, 50);
+            listOfProducts.Name = "listOfProducts";
+            listOfProducts.Size = new System.Drawing.Size(578, 545);
+            listOfProducts.TabIndex = 6;
             // 
             // MainWindow
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1061, 688);
-            Controls.Add(listView1);
+            Controls.Add(listOfProducts);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
             Controls.Add(BarCodeLabel);
@@ -176,6 +197,7 @@ namespace Sklep
             menuStrip.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)barcodeScannerBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -194,7 +216,12 @@ namespace Sklep
         private System.Windows.Forms.ToolStripMenuItem raportyToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusStripLabel;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ToolStripMenuItem listaProduktówToolStripMenuItem;
+        private System.Windows.Forms.BindingSource barcodeScannerBindingSource;
+        private ReceiptPosition receiptPosition1;
+        private System.CodeDom.CodeTypeReference receiptPosition2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Panel listOfProducts;
     }
 }
 
