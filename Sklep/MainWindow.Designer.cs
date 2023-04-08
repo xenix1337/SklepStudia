@@ -45,7 +45,7 @@ namespace Sklep
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
-            listOfProducts = new System.Windows.Forms.Panel();
+            listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -58,6 +58,7 @@ namespace Sklep
             barCodeTextBox.Name = "barCodeTextBox";
             barCodeTextBox.Size = new System.Drawing.Size(347, 27);
             barCodeTextBox.TabIndex = 1;
+            barCodeTextBox.KeyDown += AddProductButton_KeyDown;
             // 
             // AddProductButton
             // 
@@ -170,7 +171,7 @@ namespace Sklep
             // 
             listOfProducts.Location = new System.Drawing.Point(471, 50);
             listOfProducts.Name = "listOfProducts";
-            listOfProducts.Size = new System.Drawing.Size(578, 545);
+            listOfProducts.Size = new System.Drawing.Size(580, 545);
             listOfProducts.TabIndex = 6;
             // 
             // MainWindow
@@ -221,7 +222,7 @@ namespace Sklep
         private ReceiptPosition receiptPosition1;
         private System.CodeDom.CodeTypeReference receiptPosition2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Panel listOfProducts;
+        private System.Windows.Forms.FlowLayoutPanel listOfProducts;
     }
 }
 

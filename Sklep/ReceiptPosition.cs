@@ -18,6 +18,7 @@ namespace Sklep
 
         private Label _productLongName;
         private Label _pricePerUnit;
+        private decimal _pricePerUnitDecimal;
         private Label _price;
         private NumericUpDown _amount;
         public Button removeButton;
@@ -25,11 +26,12 @@ namespace Sklep
         {
             get
             {
-                return Decimal.Parse(_pricePerUnit.Text);
+                return _pricePerUnitDecimal;
             }
             set
             {
                 _pricePerUnit.Text = value.ToString();
+                _pricePerUnitDecimal = value;
             }
         }
         public decimal Amount
@@ -64,26 +66,26 @@ namespace Sklep
             _productLongName = new Label()
             {
                 Text = "Product",
-                Location = new System.Drawing.Point(0, 4),
-                Size = new System.Drawing.Size(200, 20),
+                Location = new Point(0, 4),
+                Size = new Size(200, 20),
                 TabIndex = 0,
-                Name = "productName"
+                Name = "productNameLabel"
             };
             _pricePerUnit= new Label()
             {
                 Text = "5,00",
-                Location = new System.Drawing.Point(210, 4),
-                Size = new System.Drawing.Size(50, 20),
+                Location = new Point(210, 4),
+                Size = new Size(50, 20),
                 TabIndex = 1,
-                Name = "pricePerUnit"
+                Name = "pricePerUnitLabel"
             };
             _amount = new NumericUpDown()
             {
                 Value = 0,
-                Location = new System.Drawing.Point(270, 0),
-                Size = new System.Drawing.Size(60, 20),
+                Location = new Point(270, 0),
+                Size = new Size(60, 20),
                 TabIndex = 2,
-                Name = "amount",
+                Name = "amountNumericUpDown",
                 Maximum = decimal.MaxValue,
                 Minimum = 0,
                 DecimalPlaces = 3,
@@ -91,18 +93,19 @@ namespace Sklep
             _price = new Label()
             {
                 Text = "10",
-                Location = new System.Drawing.Point(340, 4),
-                Size = new System.Drawing.Size(50, 20),
+                Location = new Point(340, 4),
+                Size = new Size(50, 20),
                 TabIndex = 3,
-                Name = "price"
+                Name = "priceLabel"
             };
             removeButton = new Button()
             {
                 Text = "X",
+                Name = "removeButton",
                 ForeColor = Color.Red,
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new System.Drawing.Point(400, 0),
-                Size = new System.Drawing.Size(20, 24),
+                Location = new Point(400, 0),
+                Size = new Size(20, 24),
                 TabIndex = 4,
             };
 

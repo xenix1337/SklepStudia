@@ -6,19 +6,20 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-//using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using System.Media;
 using System.IO;
+using System.Drawing;
 
 namespace Sklep
 {
     public partial class MainWindow : Form
     {
         BarcodeScanner barcodeScanner = new BarcodeScanner();
-        private DatabaseContext db;
         List<ReceiptPosition> receiptPositionList = new List<ReceiptPosition>();
+        SoundPlayer cashRegisterBeep = new SoundPlayer(AudioResources.Cash_register_beep);
+
 
 
         public MainWindow()
@@ -35,8 +36,7 @@ namespace Sklep
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            db = new DatabaseContext();
-            db.Products.Load();
+
             barcodeScanner.pictureBox = pictureBox1;
             barcodeScanner.pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
@@ -50,42 +50,43 @@ namespace Sklep
             {
                 barCodeTextBox.Text = code;
             }));
-            playCashRegisterBeep();
+            cashRegisterBeep.Play();
             addProductToList(code);
-         
+
         }
         private void addProductToList(string scannedBarcode)
         {
-            if (scannedBarcode != "")
-            {
-                var query = db.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
-                if (query != null)
-                {
-                    listOfProducts.Invoke(new MethodInvoker(delegate
-                    {
-                        var position = receiptPositionList.Find(p => p.barcode == scannedBarcode);
+            if (scannedBarcode == "") return;
 
-                        if (position != null)
+            using (var context = new DatabaseContext())
+            {
+                var query = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
+
+                if (query == null) return;
+
+                listOfProducts.Invoke(new MethodInvoker(delegate
+                {
+                    var position = receiptPositionList.Find(p => p.barcode == scannedBarcode);
+
+                    if (position != null)
+                    {
+                        position.Amount++;
+                    }
+                    else
+                    {
+                        receiptPositionList.Add(new ReceiptPosition()
                         {
-                            position.Amount++;
-                        }
-                        else
-                        {
-                            receiptPositionList.Add(new ReceiptPosition()
-                            {
-                                id = receiptPositionList.Count,
-                                barcode = query.Barcode,
-                                ProductLongName = query.LongName,
-                                PricePerUnit = Convert.ToDecimal(query.Price),
-                                Amount = 1,
-                                Location = new System.Drawing.Point(4, 4 + receiptPositionList.Count * 32),
-                                Size = new System.Drawing.Size(440, 24),
-                            });
-                            receiptPositionList.Last().RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
-                            listOfProducts.Controls.Add(receiptPositionList.Last());
-                        }
-                    }));
-                }
+                            id = receiptPositionList.Count,
+                            barcode = query.Barcode,
+                            ProductLongName = query.LongName,
+                            PricePerUnit = Convert.ToDecimal(query.Price),
+                            Amount = 1,
+                            Size = new Size(440, 24),
+                        });
+                        receiptPositionList.Last().RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
+                        listOfProducts.Controls.Add(receiptPositionList.Last());
+                    }
+                }));
             }
         }
 
@@ -96,31 +97,28 @@ namespace Sklep
             for (int i = parentId; i < receiptPositionList.Count; i++)
             {
                 receiptPositionList[i].id = i;
-                receiptPositionList[i].Location = new System.Drawing.Point(4, 4 + i * 32);
             }
         }
-        private void playCashRegisterBeep()
-        {
-            SoundPlayer simpleSound = new SoundPlayer(AudioResources.Cash_register_beep);
-            simpleSound.Play();
-        }
-
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             barcodeScanner.stopScanning();
         }
-
         private void AddProductButton_Click(object sender, EventArgs e)
         {
             addProductToList(barCodeTextBox.Text);
         }
-
         private void listaProduktówToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var w = new ListProductsWindow();
             w.ShowDialog();
         }
 
-
+        private void AddProductButton_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                addProductToList(barCodeTextBox.Text);
+            }
+        }
     }
 }
