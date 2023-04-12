@@ -11,6 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using System.Media;
 using System.IO;
 using System.Drawing;
+using AForge.Imaging.Filters;
 
 namespace Sklep
 {
@@ -50,42 +51,52 @@ namespace Sklep
             {
                 barCodeTextBox.Text = code;
             }));
-            cashRegisterBeep.Play();
             addProductToList(code);
 
+        }
+        private void updateSum()
+        {
+            decimal sum = 0;
+            foreach (var element in receiptPositionList)
+            {
+                sum += element.priceDecimal;
+            }
+            sumOfProductPricesLabel.Text = sum.ToString() + " PLN";
         }
         private void addProductToList(string scannedBarcode)
         {
             if (scannedBarcode == "") return;
 
+            var position = receiptPositionList.Find(p => p.barcode == scannedBarcode);
+            if (position != null)
+            {
+                position.Invoke(new MethodInvoker(delegate
+                {
+                    position.Amount++;
+                    updateSum();
+                }));
+                return;
+            }
+
             using (var context = new DatabaseContext())
             {
-                var query = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
+                var product = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
 
-                if (query == null) return;
+                if (product == null)
+                {
+                    MessageBox.Show("nie");
+                    SystemSounds.Question.Play();
+                    return;
+                }
 
                 listOfProducts.Invoke(new MethodInvoker(delegate
                 {
-                    var position = receiptPositionList.Find(p => p.barcode == scannedBarcode);
-
-                    if (position != null)
-                    {
-                        position.Amount++;
-                    }
-                    else
-                    {
-                        receiptPositionList.Add(new ReceiptPosition()
-                        {
-                            id = receiptPositionList.Count,
-                            barcode = query.Barcode,
-                            ProductLongName = query.LongName,
-                            PricePerUnit = Convert.ToDecimal(query.Price),
-                            Amount = 1,
-                            Size = new Size(440, 24),
-                        });
-                        receiptPositionList.Last().RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
-                        listOfProducts.Controls.Add(receiptPositionList.Last());
-                    }
+                    cashRegisterBeep.Play();
+                    receiptPositionList.Add(new ReceiptPosition(product));
+                    receiptPositionList.Last().id = receiptPositionList.Count - 1;
+                    receiptPositionList.Last().RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
+                    listOfProducts.Controls.Add(receiptPositionList.Last());
+                    updateSum();
                 }));
             }
         }
@@ -115,7 +126,7 @@ namespace Sklep
 
         private void AddProductButton_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 addProductToList(barCodeTextBox.Text);
             }

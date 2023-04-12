@@ -43,12 +43,13 @@ namespace Sklep.Utils
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
             filter.ApplyInPlace(bitmap);
             var result = reader.Decode(bitmap);
-            if(pictureBox != null)
+            if (pictureBox != null)
             {
                 pictureBox.Image = bitmap;
             }
-            if(result != null && EANValidator.validateBarcode(result.ToString()) && (DateTime.Now.Subtract(lastScanTime).TotalSeconds > 2 || result.ToString()!=lastScannedBarcode))
+            if (result != null && EANValidator.validateBarcode(result.ToString()))
             {
+                if (DateTime.Now.Subtract(lastScanTime).TotalSeconds < 2 && result.ToString() == lastScannedBarcode) return;
                 lastScanTime = DateTime.Now;
                 lastScannedBarcode = result.ToString();
                 OnScanningCompleted(result.ToString());
@@ -57,7 +58,7 @@ namespace Sklep.Utils
 
         protected virtual void OnScanningCompleted(string code)
         {
-            CodeScanned?.Invoke(this,code);
+            CodeScanned?.Invoke(this, code);
         }
         public void stopScanning()
         {
@@ -73,6 +74,6 @@ namespace Sklep.Utils
         {
             stopScanning();
         }
-        
+
     }
 }

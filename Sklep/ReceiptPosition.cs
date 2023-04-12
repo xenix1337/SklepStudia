@@ -9,19 +9,20 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Sklep.Database.Models;
 
 namespace Sklep
 {
     public partial class ReceiptPosition : Control
     {
         public event EventHandler<int> RemoveButtonClick;
-
         private Label _productLongName;
         private Label _pricePerUnit;
         private decimal _pricePerUnitDecimal;
         private Label _price;
         private NumericUpDown _amount;
         public Button removeButton;
+        public decimal priceDecimal;
         public decimal PricePerUnit
         {
             get
@@ -30,7 +31,7 @@ namespace Sklep
             }
             set
             {
-                _pricePerUnit.Text = value.ToString();
+                _pricePerUnit.Text = value.ToString() + " PLN";
                 _pricePerUnitDecimal = value;
             }
         }
@@ -48,8 +49,8 @@ namespace Sklep
         public string ProductLongName
         {
             get
-            {   
-                return _productLongName.Text; 
+            {
+                return _productLongName.Text;
             }
             set
             {
@@ -58,8 +59,8 @@ namespace Sklep
         }
         public int id;
         public string barcode;
-      
-        
+
+
         public ReceiptPosition()
         {
             InitializeComponent();
@@ -67,15 +68,16 @@ namespace Sklep
             {
                 Text = "Product",
                 Location = new Point(0, 4),
-                Size = new Size(200, 20),
+                Size = new Size(150, 20),
                 TabIndex = 0,
                 Name = "productNameLabel"
             };
-            _pricePerUnit= new Label()
+            _pricePerUnit = new Label()
             {
+                TextAlign = ContentAlignment.TopRight,
                 Text = "5,00",
-                Location = new Point(210, 4),
-                Size = new Size(50, 20),
+                Location = new Point(160, 4),
+                Size = new Size(100, 20),
                 TabIndex = 1,
                 Name = "pricePerUnitLabel"
             };
@@ -83,7 +85,7 @@ namespace Sklep
             {
                 Value = 0,
                 Location = new Point(270, 0),
-                Size = new Size(60, 20),
+                Size = new Size(100, 20),
                 TabIndex = 2,
                 Name = "amountNumericUpDown",
                 Maximum = decimal.MaxValue,
@@ -92,9 +94,10 @@ namespace Sklep
             };
             _price = new Label()
             {
+                TextAlign = ContentAlignment.TopRight,
                 Text = "10",
-                Location = new Point(340, 4),
-                Size = new Size(50, 20),
+                Location = new Point(380, 4),
+                Size = new Size(100, 20),
                 TabIndex = 3,
                 Name = "priceLabel"
             };
@@ -103,8 +106,8 @@ namespace Sklep
                 Text = "X",
                 Name = "removeButton",
                 ForeColor = Color.Red,
-                TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(400, 0),
+                TextAlign = ContentAlignment.TopCenter,
+                Location = new Point(480, 0),
                 Size = new Size(20, 24),
                 TabIndex = 4,
             };
@@ -126,11 +129,20 @@ namespace Sklep
 
         void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            _price.Text = (_amount.Value * PricePerUnit).ToString();
+            priceDecimal = Math.Round(_amount.Value * PricePerUnit, 2, MidpointRounding.ToPositiveInfinity);
+            _price.Text = priceDecimal.ToString() + " PLN";
         }
         protected virtual void OnRemoveButtonClick(int parentId)
         {
             RemoveButtonClick?.Invoke(this, parentId);
+        }
+        public ReceiptPosition(Product product) : this()
+        {
+            barcode = product.Barcode;
+            ProductLongName = product.LongName;
+            PricePerUnit = Convert.ToDecimal(product.Price);
+            Amount = 1;
+            Size = new Size(550, 24);
         }
 
 

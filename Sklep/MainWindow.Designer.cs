@@ -46,6 +46,8 @@ namespace Sklep
             barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
+            sumLabel = new System.Windows.Forms.Label();
+            sumOfProductPricesLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -171,14 +173,34 @@ namespace Sklep
             // 
             listOfProducts.Location = new System.Drawing.Point(471, 50);
             listOfProducts.Name = "listOfProducts";
-            listOfProducts.Size = new System.Drawing.Size(580, 545);
+            listOfProducts.Size = new System.Drawing.Size(580, 501);
             listOfProducts.TabIndex = 6;
+            // 
+            // sumLabel
+            // 
+            sumLabel.AutoSize = true;
+            sumLabel.Location = new System.Drawing.Point(471, 554);
+            sumLabel.Name = "sumLabel";
+            sumLabel.Size = new System.Drawing.Size(57, 20);
+            sumLabel.TabIndex = 0;
+            sumLabel.Text = "SUMA: ";
+            // 
+            // sumOfProductPricesLabel
+            // 
+            sumOfProductPricesLabel.Location = new System.Drawing.Point(552, 554);
+            sumOfProductPricesLabel.Name = "sumOfProductPricesLabel";
+            sumOfProductPricesLabel.Size = new System.Drawing.Size(497, 20);
+            sumOfProductPricesLabel.TabIndex = 7;
+            sumOfProductPricesLabel.Text = "0 PLN";
+            sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // MainWindow
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1061, 688);
+            Controls.Add(sumOfProductPricesLabel);
+            Controls.Add(sumLabel);
             Controls.Add(listOfProducts);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
@@ -223,6 +245,8 @@ namespace Sklep
         private System.CodeDom.CodeTypeReference receiptPosition2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.FlowLayoutPanel listOfProducts;
+        private System.Windows.Forms.Label sumLabel;
+        private System.Windows.Forms.Label sumOfProductPricesLabel;
     }
 }
 
