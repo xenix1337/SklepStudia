@@ -17,12 +17,10 @@ namespace Sklep
 {
     public partial class MainWindow : Form
     {
-        BarcodeScanner barcodeScanner = new BarcodeScanner();
         List<ReceiptPosition> receiptPositionList = new List<ReceiptPosition>();
         SoundPlayer cashRegisterBeep = new SoundPlayer(AudioResources.Cash_register_beep);
-
-
-
+        SoundPlayer errorSound = new SoundPlayer(AudioResources.error_sound_effect);
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -37,11 +35,12 @@ namespace Sklep
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
-            barcodeScanner.pictureBox = pictureBox1;
-            barcodeScanner.pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
-            barcodeScanner.startScanning();
+            Program.barcodeScanner = new BarcodeScanner();
+            Program.barcodeScanner.pictureBoxes.Push(pictureBox1);
+            Program.barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
+            Program.barcodeScanner.startScanning();
             statusStripLabel.Text = "Gotowy";
         }
 
@@ -84,8 +83,8 @@ namespace Sklep
 
                 if (product == null)
                 {
-                    MessageBox.Show("nie");
-                    SystemSounds.Question.Play();
+                    errorSound.Play();
+                    statusStripLabel.Text = "Nieznany produkt!";
                     return;
                 }
 
@@ -112,7 +111,7 @@ namespace Sklep
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            barcodeScanner.stopScanning();
+            Program.barcodeScanner.stopScanning();
         }
         private void AddProductButton_Click(object sender, EventArgs e)
         {

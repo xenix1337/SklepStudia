@@ -68,5 +68,14 @@ namespace Sklep {
                 return ResourceManager.GetStream("Cash_register_beep", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.IO.UnmanagedMemoryStream podobny do zasobu System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream error_sound_effect {
+            get {
+                return ResourceManager.GetStream("error_sound_effect", resourceCulture);
+            }
+        }
     }
 }
