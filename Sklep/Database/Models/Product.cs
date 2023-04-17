@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sklep.Database.Models
 {
-    internal class Product
+    public class Product
     {
         public int Id { get; set; }
         public string ShortName { get; set; }
