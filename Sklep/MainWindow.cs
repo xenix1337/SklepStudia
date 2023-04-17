@@ -47,5 +47,17 @@ namespace Sklep
             var w = new ListProductsWindow();
             w.ShowDialog();
         }
+
+        private void zarejestrujGrupęProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new NewProductGroupWindow();
+            w.ShowDialog();
+        }
+
+        private void listaGrupProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListProductGroupsWindow();
+            w.ShowDialog();
+        }
     }
 }

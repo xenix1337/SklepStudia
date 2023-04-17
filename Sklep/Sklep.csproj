@@ -72,4 +72,12 @@
     <PackageReference Include="ZXing.Net" Version="0.16.9" />
     <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ListProductGroupsWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="NewProductGroupWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>
