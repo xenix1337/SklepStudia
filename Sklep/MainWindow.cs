@@ -71,6 +71,7 @@ namespace Sklep
             {
                 position.Invoke(new MethodInvoker(delegate
                 {
+                    cashRegisterBeep.Play();
                     position.Amount++;
                     updateSum();
                 }));

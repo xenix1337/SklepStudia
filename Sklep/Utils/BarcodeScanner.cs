@@ -47,13 +47,13 @@ namespace Sklep.Utils
             {
                 pictureBoxes.Peek().Image = bitmap;
             }
-            if (result != null && EANValidator.validateBarcode(result.ToString()))
-            {
-                if (DateTime.Now.Subtract(lastScanTime).TotalSeconds < 2 && result.ToString() == lastScannedBarcode) return;
-                lastScanTime = DateTime.Now;
-                lastScannedBarcode = result.ToString();
-                OnScanningCompleted(result.ToString());
-            }
+
+            if (result == null || !EANValidator.validateBarcode(result.ToString())) return;
+            if (DateTime.Now.Subtract(lastScanTime).TotalSeconds > 2 || result.ToString() != lastScannedBarcode) return;
+            
+            lastScanTime = DateTime.Now;
+            lastScannedBarcode = result.ToString();
+            OnScanningCompleted(result.ToString());
         }
 
         protected virtual void OnScanningCompleted(string code)
