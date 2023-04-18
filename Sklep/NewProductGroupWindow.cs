@@ -34,7 +34,10 @@ namespace Sklep
         {
             kodKreskowyGrupyTextBox.Invoke(() =>
             {
-                kodKreskowyGrupyTextBox.Text = code;
+                if (kodKreskowyGrupyTextBox.Text == "")
+                    kodKreskowyGrupyTextBox.Text = code;
+                else
+                    kodKreskowyProduktuTextBox.Text = code;
             });
         }
 

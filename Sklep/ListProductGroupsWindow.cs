@@ -37,7 +37,8 @@ namespace Sklep
                 new DataGridViewTextBoxColumn()
                 {
                     HeaderText = "Kod kreskowy produktu",
-                    DataPropertyName = "Product.Barcode",
+                    ReadOnly = true,
+                    DataPropertyName = "ProductBarcode",
                     Width = 200
                 },
                 new DataGridViewTextBoxColumn()
