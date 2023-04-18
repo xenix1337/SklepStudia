@@ -73,15 +73,12 @@
     <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Update="ListProductGroupsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="NewProductGroupWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-  </ItemGroup>
-=======
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
@@ -97,5 +94,4 @@
       <LastGenOutput>AudioResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
->>>>>>> main
 </Project>

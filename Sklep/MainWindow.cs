@@ -80,7 +80,8 @@ namespace Sklep
 
             using (var context = new DatabaseContext())
             {
-                var product = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
+                var product = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode) ?? 
+                              context.ProductGroups.SingleOrDefault(p => p.GroupBarcode == scannedBarcode).Product;
 
                 if (product == null)
                 {

@@ -49,7 +49,7 @@ namespace Sklep.Utils
             }
 
             if (result == null || !EANValidator.validateBarcode(result.ToString())) return;
-            if (DateTime.Now.Subtract(lastScanTime).TotalSeconds > 2 || result.ToString() != lastScannedBarcode) return;
+            if (DateTime.Now.Subtract(lastScanTime).TotalSeconds > 2 && result.ToString() == lastScannedBarcode) return;
             
             lastScanTime = DateTime.Now;
             lastScannedBarcode = result.ToString();
