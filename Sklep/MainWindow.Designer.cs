@@ -29,25 +29,37 @@ namespace Sklep
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             barCodeTextBox = new System.Windows.Forms.TextBox();
             AddProductButton = new System.Windows.Forms.Button();
             finalizationButton = new System.Windows.Forms.Button();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             BarCodeLabel = new System.Windows.Forms.Label();
-            panel1 = new System.Windows.Forms.Panel();
             menuStrip = new System.Windows.Forms.MenuStrip();
             programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             produktyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujNowyProduktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listaProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
             zarejestrujGrupęProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             listaGrupProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
+            raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            statusStrip = new System.Windows.Forms.StatusStrip();
+            statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
+            sumLabel = new System.Windows.Forms.Label();
+            sumOfProductPricesLabel = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)barcodeScannerBindingSource).BeginInit();
             SuspendLayout();
             // 
             // barCodeTextBox
@@ -56,6 +68,7 @@ namespace Sklep
             barCodeTextBox.Name = "barCodeTextBox";
             barCodeTextBox.Size = new System.Drawing.Size(347, 27);
             barCodeTextBox.TabIndex = 1;
+            barCodeTextBox.KeyDown += AddProductButton_KeyDown;
             // 
             // AddProductButton
             // 
@@ -65,6 +78,7 @@ namespace Sklep
             AddProductButton.TabIndex = 2;
             AddProductButton.Text = "Dodaj Produkt";
             AddProductButton.UseVisualStyleBackColor = true;
+            AddProductButton.Click += AddProductButton_Click;
             // 
             // finalizationButton
             // 
@@ -91,13 +105,6 @@ namespace Sklep
             BarCodeLabel.Size = new System.Drawing.Size(67, 20);
             BarCodeLabel.TabIndex = 5;
             BarCodeLabel.Text = "Barcode:";
-            // 
-            // panel1
-            // 
-            panel1.Location = new System.Drawing.Point(471, 36);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(580, 526);
-            panel1.TabIndex = 8;
             // 
             // menuStrip
             // 
@@ -144,6 +151,12 @@ namespace Sklep
             zarejestrujGrupęProduktówToolStripMenuItem.Text = "Zarejestruj grupę produktów";
             zarejestrujGrupęProduktówToolStripMenuItem.Click += zarejestrujGrupęProduktówToolStripMenuItem_Click;
             // 
+
+            listaProduktówToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            listaProduktówToolStripMenuItem.Text = "Lista produktów";
+            listaProduktówToolStripMenuItem.Click += listaProduktówToolStripMenuItem_Click;
+            // 
+
             // raportyToolStripMenuItem
             // 
             raportyToolStripMenuItem.Name = "raportyToolStripMenuItem";
@@ -167,21 +180,60 @@ namespace Sklep
             statusStripLabel.Size = new System.Drawing.Size(205, 20);
             statusStripLabel.Text = "Trwa łączenie z bazą danych...";
             // 
+
             // listaGrupProduktówToolStripMenuItem
             // 
             listaGrupProduktówToolStripMenuItem.Name = "listaGrupProduktówToolStripMenuItem";
             listaGrupProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
             listaGrupProduktówToolStripMenuItem.Text = "Lista grup produktów";
             listaGrupProduktówToolStripMenuItem.Click += listaGrupProduktówToolStripMenuItem_Click;
+
+            // barcodeScannerBindingSource
+            // 
+            barcodeScannerBindingSource.DataSource = typeof(Utils.BarcodeScanner);
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // listOfProducts
+            // 
+            listOfProducts.Location = new System.Drawing.Point(471, 50);
+            listOfProducts.Name = "listOfProducts";
+            listOfProducts.Size = new System.Drawing.Size(580, 501);
+            listOfProducts.TabIndex = 6;
+            // 
+            // sumLabel
+            // 
+            sumLabel.AutoSize = true;
+            sumLabel.Location = new System.Drawing.Point(471, 554);
+            sumLabel.Name = "sumLabel";
+            sumLabel.Size = new System.Drawing.Size(57, 20);
+            sumLabel.TabIndex = 0;
+            sumLabel.Text = "SUMA: ";
+            // 
+            // sumOfProductPricesLabel
+            // 
+            sumOfProductPricesLabel.Location = new System.Drawing.Point(552, 554);
+            sumOfProductPricesLabel.Name = "sumOfProductPricesLabel";
+            sumOfProductPricesLabel.Size = new System.Drawing.Size(497, 20);
+            sumOfProductPricesLabel.TabIndex = 7;
+            sumOfProductPricesLabel.Text = "0 PLN";
+            sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+
             // 
             // MainWindow
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1061, 688);
+            Controls.Add(sumOfProductPricesLabel);
+            Controls.Add(sumLabel);
+            Controls.Add(listOfProducts);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
-            Controls.Add(panel1);
             Controls.Add(BarCodeLabel);
             Controls.Add(pictureBox1);
             Controls.Add(finalizationButton);
@@ -198,6 +250,7 @@ namespace Sklep
             menuStrip.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)barcodeScannerBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -209,7 +262,6 @@ namespace Sklep
         private System.Windows.Forms.Button finalizationButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label BarCodeLabel;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem programToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem produktyToolStripMenuItem;
@@ -220,6 +272,13 @@ namespace Sklep
         private System.Windows.Forms.ToolStripMenuItem listaProduktówToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zarejestrujGrupęProduktówToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaGrupProduktówToolStripMenuItem;
+        private System.Windows.Forms.BindingSource barcodeScannerBindingSource;
+        private ReceiptPosition receiptPosition1;
+        private System.CodeDom.CodeTypeReference receiptPosition2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.FlowLayoutPanel listOfProducts;
+        private System.Windows.Forms.Label sumLabel;
+        private System.Windows.Forms.Label sumOfProductPricesLabel;
     }
 }
 

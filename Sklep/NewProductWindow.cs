@@ -25,7 +25,6 @@ namespace Sklep
         {
             LoadSuppliersList();
             LoadCategoriesList();
-
             ValidateBarcode();
             ValidateShortName();
             ValidateLongName();

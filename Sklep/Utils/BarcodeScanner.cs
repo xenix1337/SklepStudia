@@ -18,6 +18,8 @@ namespace Sklep.Utils
         public event EventHandler<string> CodeScanned;
         public Stack<PictureBox> pictureBoxes = new Stack<PictureBox>();
         public int cameraIndex = 0;
+        private DateTime lastScanTime = DateTime.Now;
+        private string lastScannedBarcode = "";
 
         FilterInfoCollection filterInfoCollection;
         VideoCaptureDevice videoCaptureDevice;
@@ -45,15 +47,18 @@ namespace Sklep.Utils
             {
                 pictureBoxes.Peek().Image = bitmap;
             }
-            if(result != null && EANValidator.validateBarcode(result.ToString()))
-            {
-                OnScanningCompleted(result.ToString());
-            }
+
+            if (result == null || !EANValidator.validateBarcode(result.ToString())) return;
+            if (DateTime.Now.Subtract(lastScanTime).TotalSeconds > 2 || result.ToString() != lastScannedBarcode) return;
+            
+            lastScanTime = DateTime.Now;
+            lastScannedBarcode = result.ToString();
+            OnScanningCompleted(result.ToString());
         }
 
         protected virtual void OnScanningCompleted(string code)
         {
-            CodeScanned?.Invoke(this,code);
+            CodeScanned?.Invoke(this, code);
         }
         public void stopScanning()
         {
@@ -69,6 +74,6 @@ namespace Sklep.Utils
         {
             stopScanning();
         }
-        
+
     }
 }
