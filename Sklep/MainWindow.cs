@@ -17,7 +17,7 @@ namespace Sklep
 {
     public partial class MainWindow : Form
     {
-        List<ReceiptPosition> receiptPositionList = new List<ReceiptPosition>();
+        Dictionary<string, ReceiptPosition> receiptPositionList = new Dictionary<string, ReceiptPosition>();
         SoundPlayer cashRegisterBeep = new SoundPlayer(AudioResources.Cash_register_beep);
         SoundPlayer errorSound = new SoundPlayer(AudioResources.error_sound_effect);
         
@@ -56,7 +56,7 @@ namespace Sklep
         private void updateSum()
         {
             decimal sum = 0;
-            foreach (var element in receiptPositionList)
+            foreach (var element in receiptPositionList.Values)
             {
                 sum += element.priceDecimal;
             }
@@ -66,21 +66,19 @@ namespace Sklep
         {
             if (scannedBarcode == "") return;
 
-            var position = receiptPositionList.Find(p => p.barcode == scannedBarcode);
-            if (position != null)
-            {
-                position.Invoke(new MethodInvoker(delegate
-                {
-                    cashRegisterBeep.Play();
-                    position.Amount++;
-                    updateSum();
-                }));
-                return;
-            }
-
             using (var context = new DatabaseContext())
             {
+                decimal amount = 1;
                 var product = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
+                if (product == null)
+                {
+                    var group = context.ProductGroups.Include("Product").SingleOrDefault(p => p.GroupBarcode == scannedBarcode);
+                    if (group != null)
+                    {
+                        product = group.Product;
+                        amount = group.Amount;
+                    }
+                }
 
                 if (product == null)
                 {
@@ -89,26 +87,35 @@ namespace Sklep
                     return;
                 }
 
+                ReceiptPosition position;
+                if (receiptPositionList.TryGetValue(product.Barcode, out position))
+                {
+                    position.Invoke(new MethodInvoker(delegate
+                    {
+                        cashRegisterBeep.Play();
+                        position.Amount += amount;
+                        updateSum();
+                    }));
+                    return;
+                }
+
                 listOfProducts.Invoke(new MethodInvoker(delegate
                 {
                     cashRegisterBeep.Play();
-                    receiptPositionList.Add(new ReceiptPosition(product));
-                    receiptPositionList.Last().id = receiptPositionList.Count - 1;
-                    receiptPositionList.Last().RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
-                    listOfProducts.Controls.Add(receiptPositionList.Last());
+                    var recepitPosition = new ReceiptPosition(product);
+                    recepitPosition.Amount = amount;
+                    recepitPosition.RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
+                    receiptPositionList.Add(product.Barcode, recepitPosition);
+                    listOfProducts.Controls.Add(recepitPosition);
                     updateSum();
                 }));
             }
         }
 
-        private void ReceiptPosition_RemoveButtonClick(object sender, int parentId)
+        private void ReceiptPosition_RemoveButtonClick(object sender, string barcode)
         {
-            listOfProducts.Controls.Remove(receiptPositionList[parentId]);
-            receiptPositionList.Remove(receiptPositionList[parentId]);
-            for (int i = parentId; i < receiptPositionList.Count; i++)
-            {
-                receiptPositionList[i].id = i;
-            }
+            listOfProducts.Controls.Remove(receiptPositionList[barcode]);
+            receiptPositionList.Remove(barcode);
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -121,6 +128,18 @@ namespace Sklep
         private void listaProduktówToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var w = new ListProductsWindow();
+            w.ShowDialog();
+        }
+
+        private void zarejestrujGrupęProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new NewProductGroupWindow();
+            w.ShowDialog();
+        }
+
+        private void listaGrupProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListProductGroupsWindow();
             w.ShowDialog();
         }
 

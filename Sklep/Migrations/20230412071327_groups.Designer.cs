@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sklep.Database;
@@ -11,9 +12,11 @@ using Sklep.Database;
 namespace Sklep.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230412071327_groups")]
+    partial class groups
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,6 +106,10 @@ namespace Sklep.Migrations
                     b.Property<string>("GroupBarcode")
                         .HasColumnType("text")
                         .HasColumnName("group_barcode");
+
+                    b.Property<string>("ProductBarcode")
+                        .HasColumnType("text")
+                        .HasColumnName("product_barcode");
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("integer")

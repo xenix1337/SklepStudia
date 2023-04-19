@@ -40,6 +40,13 @@ namespace Sklep
             produktyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujNowyProduktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listaProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
+            zarejestrujGrupęProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            statusStrip = new System.Windows.Forms.StatusStrip();
+            statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            listaGrupProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,6 +55,7 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
+
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -117,7 +125,7 @@ namespace Sklep
             // 
             // produktyToolStripMenuItem
             // 
-            produktyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { zarejestrujNowyProduktToolStripMenuItem, listaProduktówToolStripMenuItem });
+            produktyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { zarejestrujNowyProduktToolStripMenuItem, listaProduktówToolStripMenuItem, zarejestrujGrupęProduktówToolStripMenuItem, listaGrupProduktówToolStripMenuItem });
             produktyToolStripMenuItem.Name = "produktyToolStripMenuItem";
             produktyToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             produktyToolStripMenuItem.Text = "Produkty";
@@ -125,17 +133,30 @@ namespace Sklep
             // zarejestrujNowyProduktToolStripMenuItem
             // 
             zarejestrujNowyProduktToolStripMenuItem.Name = "zarejestrujNowyProduktToolStripMenuItem";
-            zarejestrujNowyProduktToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            zarejestrujNowyProduktToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
             zarejestrujNowyProduktToolStripMenuItem.Text = "Zarejestruj nowy produkt";
             zarejestrujNowyProduktToolStripMenuItem.Click += zarejestrujNowyProduktToolStripMenuItem_Click;
             // 
             // listaProduktówToolStripMenuItem
             // 
             listaProduktówToolStripMenuItem.Name = "listaProduktówToolStripMenuItem";
+            listaProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
+            listaProduktówToolStripMenuItem.Text = "Lista produktów";
+            listaProduktówToolStripMenuItem.Click += listaProduktówToolStripMenuItem_Click;
+            // 
+            // zarejestrujGrupęProduktówToolStripMenuItem
+            // 
+            zarejestrujGrupęProduktówToolStripMenuItem.Name = "zarejestrujGrupęProduktówToolStripMenuItem";
+            zarejestrujGrupęProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
+            zarejestrujGrupęProduktówToolStripMenuItem.Text = "Zarejestruj grupę produktów";
+            zarejestrujGrupęProduktówToolStripMenuItem.Click += zarejestrujGrupęProduktówToolStripMenuItem_Click;
+            // 
+
             listaProduktówToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
             listaProduktówToolStripMenuItem.Text = "Lista produktów";
             listaProduktówToolStripMenuItem.Click += listaProduktówToolStripMenuItem_Click;
             // 
+
             // raportyToolStripMenuItem
             // 
             raportyToolStripMenuItem.Name = "raportyToolStripMenuItem";
@@ -159,6 +180,14 @@ namespace Sklep
             statusStripLabel.Size = new System.Drawing.Size(205, 20);
             statusStripLabel.Text = "Trwa łączenie z bazą danych...";
             // 
+
+            // listaGrupProduktówToolStripMenuItem
+            // 
+            listaGrupProduktówToolStripMenuItem.Name = "listaGrupProduktówToolStripMenuItem";
+            listaGrupProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
+            listaGrupProduktówToolStripMenuItem.Text = "Lista grup produktów";
+            listaGrupProduktówToolStripMenuItem.Click += listaGrupProduktówToolStripMenuItem_Click;
+
             // barcodeScannerBindingSource
             // 
             barcodeScannerBindingSource.DataSource = typeof(Utils.BarcodeScanner);
@@ -193,6 +222,7 @@ namespace Sklep
             sumOfProductPricesLabel.TabIndex = 7;
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+
             // 
             // MainWindow
             // 
@@ -240,6 +270,8 @@ namespace Sklep
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusStripLabel;
         private System.Windows.Forms.ToolStripMenuItem listaProduktówToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zarejestrujGrupęProduktówToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listaGrupProduktówToolStripMenuItem;
         private System.Windows.Forms.BindingSource barcodeScannerBindingSource;
         private ReceiptPosition receiptPosition1;
         private System.CodeDom.CodeTypeReference receiptPosition2;
