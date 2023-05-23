@@ -152,11 +152,6 @@ namespace Sklep
             zarejestrujGrupęProduktówToolStripMenuItem.Click += zarejestrujGrupęProduktówToolStripMenuItem_Click;
             // 
 
-            listaProduktówToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
-            listaProduktówToolStripMenuItem.Text = "Lista produktów";
-            listaProduktówToolStripMenuItem.Click += listaProduktówToolStripMenuItem_Click;
-            // 
-
             // raportyToolStripMenuItem
             // 
             raportyToolStripMenuItem.Name = "raportyToolStripMenuItem";
