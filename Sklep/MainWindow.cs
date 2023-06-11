@@ -12,6 +12,7 @@ using System.Media;
 using System.IO;
 using System.Drawing;
 using AForge.Imaging.Filters;
+using Sklep.Database.Models;
 
 namespace Sklep
 {
@@ -66,56 +67,54 @@ namespace Sklep
         {
             if (scannedBarcode == "") return;
 
-            using (var context = new DatabaseContext())
+            string productString = ServerCommunication.ScanProduct(scannedBarcode);
+            if (productString == "")
             {
-                decimal amount = 1;
-                var product = context.Products.SingleOrDefault(p => p.Barcode == scannedBarcode);
-                if (product == null)
-                {
-                    var group = context.ProductGroups.Include("Product").SingleOrDefault(p => p.GroupBarcode == scannedBarcode);
-                    if (group != null)
-                    {
-                        product = group.Product;
-                        amount = group.Amount;
-                    }
-                }
+                errorSound.Play();
+                statusStripLabel.Text = "Nieznany produkt!";
+                return;
+            }
 
-                if (product == null)
-                {
-                    errorSound.Play();
-                    statusStripLabel.Text = "Nieznany produkt!";
-                    return;
-                }
+            var productData = productString.Split('\n');
+            Product product = new Product();
+            product.ShortName = productData[1];
+            product.LongName = productData[2];
+            product.Barcode = productData[3];
+            product.Price = double.Parse(productData[4]);
+            bool adultOnly = bool.Parse(productData[5]);
+            decimal amount = decimal.Parse(productData[6]);
+            //TODO: if(adultOnly == true && !adultChecked) { warning(); }
 
-                ReceiptPosition position;
-                if (receiptPositionList.TryGetValue(product.Barcode, out position))
-                {
-                    position.Invoke(new MethodInvoker(delegate
-                    {
-                        cashRegisterBeep.Play();
-                        position.Amount += amount;
-                        updateSum();
-                    }));
-                    return;
-                }
-
-                listOfProducts.Invoke(new MethodInvoker(delegate
+            ReceiptPosition position;
+            if (receiptPositionList.TryGetValue(product.Barcode, out position))
+            {
+                position.Invoke(new MethodInvoker(delegate
                 {
                     cashRegisterBeep.Play();
-                    var recepitPosition = new ReceiptPosition(product);
-                    recepitPosition.Amount = amount;
-                    recepitPosition.RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
-                    receiptPositionList.Add(product.Barcode, recepitPosition);
-                    listOfProducts.Controls.Add(recepitPosition);
+                    position.Amount += amount;
                     updateSum();
                 }));
+                return;
             }
+
+            listOfProducts.Invoke(new MethodInvoker(delegate
+            {
+                cashRegisterBeep.Play();
+                var recepitPosition = new ReceiptPosition(product);
+                recepitPosition.Amount = amount;
+                recepitPosition.RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
+                receiptPositionList.Add(product.Barcode, recepitPosition);
+                listOfProducts.Controls.Add(recepitPosition);
+                updateSum();
+            }));
+
         }
 
         private void ReceiptPosition_RemoveButtonClick(object sender, string barcode)
         {
             listOfProducts.Controls.Remove(receiptPositionList[barcode]);
             receiptPositionList.Remove(barcode);
+            updateSum();
         }
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
