@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Sklep.Database;
 using System.Net;
 using System.Net.Sockets;
@@ -16,16 +17,45 @@ namespace SklepSever
                 var product = context.Products.Include(p => p.Category).SingleOrDefault(p => p.Barcode == barcode);
                 if(product != null)
                 {
-                    return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n1", product.Id, product.ShortName, product.LongName, product.Barcode, product.Price, product.Category.AdultOnly);
+                    var response = new
+                    {
+                        result = "OK",
+                        data = new
+                        {
+                            Id = product.Id,
+                            ShortName = product.ShortName,
+                            LongName = product.LongName,
+                            Barcode = product.Barcode,
+                            Price = product.Price,
+                            AdultOnly = product.Category.AdultOnly,
+                            Amount = 1
+                        }
+                    };
+                    return JsonConvert.SerializeObject(response);
                 }
+
                 var productGroup = context.ProductGroups.Include("Product").Include(p => p.Product.Category).SingleOrDefault(p => p.GroupBarcode == barcode);
                 if (productGroup != null)
                 {
                     product = productGroup.Product;
-                    return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}", product.Id, product.ShortName, product.LongName, product.Barcode, product.Price, product.Category.AdultOnly, productGroup.Amount);
+                    var response = new
+                    {
+                        result = "OK",
+                        data = new
+                        {
+                            Id = product.Id,
+                            ShortName = product.ShortName,
+                            LongName = product.LongName,
+                            Barcode = product.Barcode,
+                            Price = product.Price,
+                            AdultOnly = product.Category.AdultOnly,
+                            Amount = productGroup.Amount
+                        }
+                    };
+                    return JsonConvert.SerializeObject(response);
                 }
 
-                return "";
+                return JsonConvert.SerializeObject(new { result = "ERROR" });
             }
         }
 
@@ -42,17 +72,21 @@ namespace SklepSever
             while (true)
             {
                 Socket client = httpServer.Accept();
-                byte[] bytes = new byte[2048];
+                byte[] bytes = new byte[4096];
                 int numBytes = client.Receive(bytes);
-                string data = Encoding.ASCII.GetString(bytes, 0, numBytes);
+                string str = Encoding.ASCII.GetString(bytes, 0, numBytes);
 
-                int n = data.IndexOf("\n");
-                string method = data.Substring(0, n);
-                string arg = data.Substring(n + 1);
+                dynamic? jsonRequest = JsonConvert.DeserializeObject(str);
+                if (jsonRequest == null) continue;
 
-                if(method == "scanProduct")
+
+
+                string command = jsonRequest.command.ToString();
+                dynamic data = jsonRequest.data;
+
+                if(command == "scanProduct")
                 {
-                    string resStr = GetProduct(arg).ToString();
+                    string resStr = GetProduct(data.barcode.ToString());
                     byte[] resData = Encoding.ASCII.GetBytes(resStr);
 
                     client.SendTo(resData, client.RemoteEndPoint);
