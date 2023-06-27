@@ -35,6 +35,7 @@ namespace Sklep
             s.serverPort = int.Parse(portTextBox.Text);
 
             SettingsManager.Save();
+            Close();
         }
     }
 }

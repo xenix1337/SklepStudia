@@ -156,7 +156,7 @@
             applyButton.Name = "applyButton";
             applyButton.Size = new System.Drawing.Size(587, 29);
             applyButton.TabIndex = 1;
-            applyButton.Text = "Zapisz";
+            applyButton.Text = "Zapisz i wyjdź";
             applyButton.UseVisualStyleBackColor = true;
             applyButton.Click += applyButton_Click;
             // 
