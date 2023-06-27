@@ -67,22 +67,22 @@ namespace Sklep
         {
             if (scannedBarcode == "") return;
 
-            string productString = ServerCommunication.ScanProduct(scannedBarcode);
-            if (productString == "")
+            dynamic productObject = ServerCommunication.ScanProduct(scannedBarcode);
+
+            if (productObject.result != "OK")
             {
                 errorSound.Play();
                 statusStripLabel.Text = "Nieznany produkt!";
                 return;
             }
 
-            var productData = productString.Split('\n');
             Product product = new Product();
-            product.ShortName = productData[1];
-            product.LongName = productData[2];
-            product.Barcode = productData[3];
-            product.Price = double.Parse(productData[4]);
-            bool adultOnly = bool.Parse(productData[5]);
-            decimal amount = decimal.Parse(productData[6]);
+            product.ShortName = productObject.data.ShortName;
+            product.LongName = productObject.data.LongName;
+            product.Barcode = productObject.data.Barcode;
+            product.Price = productObject.data.Price;
+            bool adultOnly = productObject.data.AdultOnly;
+            decimal amount = productObject.data.Amount;
             //TODO: if(adultOnly == true && !adultChecked) { warning(); }
 
             ReceiptPosition position;
