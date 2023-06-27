@@ -40,13 +40,8 @@ namespace Sklep
             produktyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujNowyProduktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listaProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
             zarejestrujGrupęProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            statusStrip = new System.Windows.Forms.StatusStrip();
-            statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             listaGrupProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -55,7 +50,6 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
-
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -88,6 +82,7 @@ namespace Sklep
             finalizationButton.TabIndex = 3;
             finalizationButton.Text = "Zapłać";
             finalizationButton.UseVisualStyleBackColor = true;
+            finalizationButton.Click += finalizationButton_Click;
             // 
             // pictureBox1
             // 
@@ -151,7 +146,13 @@ namespace Sklep
             zarejestrujGrupęProduktówToolStripMenuItem.Text = "Zarejestruj grupę produktów";
             zarejestrujGrupęProduktówToolStripMenuItem.Click += zarejestrujGrupęProduktówToolStripMenuItem_Click;
             // 
-
+            // listaGrupProduktówToolStripMenuItem
+            // 
+            listaGrupProduktówToolStripMenuItem.Name = "listaGrupProduktówToolStripMenuItem";
+            listaGrupProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
+            listaGrupProduktówToolStripMenuItem.Text = "Lista grup produktów";
+            listaGrupProduktówToolStripMenuItem.Click += listaGrupProduktówToolStripMenuItem_Click;
+            // 
             // raportyToolStripMenuItem
             // 
             raportyToolStripMenuItem.Name = "raportyToolStripMenuItem";
@@ -175,14 +176,6 @@ namespace Sklep
             statusStripLabel.Size = new System.Drawing.Size(205, 20);
             statusStripLabel.Text = "Trwa łączenie z bazą danych...";
             // 
-
-            // listaGrupProduktówToolStripMenuItem
-            // 
-            listaGrupProduktówToolStripMenuItem.Name = "listaGrupProduktówToolStripMenuItem";
-            listaGrupProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
-            listaGrupProduktówToolStripMenuItem.Text = "Lista grup produktów";
-            listaGrupProduktówToolStripMenuItem.Click += listaGrupProduktówToolStripMenuItem_Click;
-
             // barcodeScannerBindingSource
             // 
             barcodeScannerBindingSource.DataSource = typeof(Utils.BarcodeScanner);
@@ -217,7 +210,6 @@ namespace Sklep
             sumOfProductPricesLabel.TabIndex = 7;
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-
             // 
             // MainWindow
             // 
