@@ -33,8 +33,9 @@ namespace Sklep
 
         private static string SendRequest(object requestJSON)
         {
-            int port = 2137;
-            using (TcpClient client = new TcpClient("localhost", port))
+            string address = SettingsManager.current.serverIP;
+            int port = SettingsManager.current.serverPort;
+            using (TcpClient client = new TcpClient(address, port))
             {
                 string message = JsonConvert.SerializeObject(requestJSON);
                 byte[] data = Encoding.ASCII.GetBytes(message);
