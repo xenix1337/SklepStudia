@@ -21,7 +21,9 @@ namespace Sklep
         Dictionary<string, ReceiptPosition> receiptPositionList = new Dictionary<string, ReceiptPosition>();
         SoundPlayer cashRegisterBeep = new SoundPlayer(AudioResources.Cash_register_beep);
         SoundPlayer errorSound = new SoundPlayer(AudioResources.error_sound_effect);
-        
+
+        bool checkedIfAdult = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -83,7 +85,15 @@ namespace Sklep
             product.Price = productObject.data.Price;
             bool adultOnly = productObject.data.AdultOnly;
             decimal amount = productObject.data.Amount;
-            //TODO: if(adultOnly == true && !adultChecked) { warning(); }
+            if(adultOnly == true && !checkedIfAdult) {
+                var customerAdult = MessageBox.Show("Czy klient ukończył 18 rok życia?", "Produkt tylko dla pełnoletnich!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (customerAdult == DialogResult.Yes) checkedIfAdult = true;
+                else
+                {
+                    MessageBox.Show("Odmowa sprzedaży, odłóż towar", "Odmowa sprzedaży", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
 
             ReceiptPosition position;
             if (receiptPositionList.TryGetValue(product.Barcode, out position))
@@ -148,6 +158,11 @@ namespace Sklep
             {
                 addProductToList(barCodeTextBox.Text);
             }
+        }
+
+        private void finalizationButton_Click(object sender, EventArgs e)
+        {
+            checkedIfAdult = false; // Move this after payment, currently there is no finalization so I leave it here
         }
     }
 }
