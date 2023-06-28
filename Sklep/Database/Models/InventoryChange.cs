@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace Sklep.Database.Models
 {
-    public class Product
+    public enum changeType
+    {
+        Theft,
+        Stocktake,
+        Sale,
+        Delivery,
+        ManualChange
+    }
+    public class InventoryChange
     {
         public int Id { get; set; }
-        public string ShortName { get; set; }
-        public string LongName { get; set; }
-        public double Price { get; set; }
-        public string Barcode { get; set; }
-        public int? CategoryId { get; set; }
-        public ProductCategory Category { get; set; }
         public int? PositionId { get; set; }
         public InventoryPosition Position { get; set; }
-
+        public changeType Type { get; set; }
+        public int Amount { get; set; }
     }
 }

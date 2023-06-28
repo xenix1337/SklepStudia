@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sklep.Database;
@@ -11,9 +12,11 @@ using Sklep.Database;
 namespace Sklep.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230628192844_InventoryPosition")]
+    partial class InventoryPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,36 +24,6 @@ namespace Sklep.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Sklep.Database.Models.InventoryChange", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer")
-                        .HasColumnName("amount");
-
-                    b.Property<int?>("PositionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("position_id");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer")
-                        .HasColumnName("type");
-
-                    b.HasKey("Id")
-                        .HasName("pk_inventory_change");
-
-                    b.HasIndex("PositionId")
-                        .HasDatabaseName("ix_inventory_change_position_id");
-
-                    b.ToTable("inventory_change", (string)null);
-                });
 
             modelBuilder.Entity("Sklep.Database.Models.InventoryPosition", b =>
                 {
@@ -179,16 +152,6 @@ namespace Sklep.Migrations
                         .HasDatabaseName("ix_product_group_product_id");
 
                     b.ToTable("product_group", (string)null);
-                });
-
-            modelBuilder.Entity("Sklep.Database.Models.InventoryChange", b =>
-                {
-                    b.HasOne("Sklep.Database.Models.InventoryPosition", "Position")
-                        .WithMany()
-                        .HasForeignKey("PositionId")
-                        .HasConstraintName("fk_inventory_change_inventory_position_position_id");
-
-                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("Sklep.Database.Models.Product", b =>
