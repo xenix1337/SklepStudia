@@ -50,6 +50,7 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
+            ustawieniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -114,6 +115,7 @@ namespace Sklep
             // 
             // programToolStripMenuItem
             // 
+            programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { ustawieniaToolStripMenuItem });
             programToolStripMenuItem.Name = "programToolStripMenuItem";
             programToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             programToolStripMenuItem.Text = "Program";
@@ -211,6 +213,13 @@ namespace Sklep
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // ustawieniaToolStripMenuItem
+            // 
+            ustawieniaToolStripMenuItem.Name = "ustawieniaToolStripMenuItem";
+            ustawieniaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            ustawieniaToolStripMenuItem.Text = "Ustawienia";
+            ustawieniaToolStripMenuItem.Click += ustawieniaToolStripMenuItem_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -266,6 +275,7 @@ namespace Sklep
         private System.Windows.Forms.FlowLayoutPanel listOfProducts;
         private System.Windows.Forms.Label sumLabel;
         private System.Windows.Forms.Label sumOfProductPricesLabel;
+        private System.Windows.Forms.ToolStripMenuItem ustawieniaToolStripMenuItem;
     }
 }
 

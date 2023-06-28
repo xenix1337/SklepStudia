@@ -40,6 +40,8 @@ namespace Sklep
         {
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
+            SettingsManager.Load();
+
             Program.barcodeScanner = new BarcodeScanner();
             Program.barcodeScanner.pictureBoxes.Push(pictureBox1);
             Program.barcodeScanner.CodeScanned += BarcodeScanner_CodeScanned;
@@ -85,7 +87,8 @@ namespace Sklep
             product.Price = productObject.data.Price;
             bool adultOnly = productObject.data.AdultOnly;
             decimal amount = productObject.data.Amount;
-            if(adultOnly == true && !checkedIfAdult) {
+            if (adultOnly == true && !checkedIfAdult)
+            {
                 var customerAdult = MessageBox.Show("Czy klient ukończył 18 rok życia?", "Produkt tylko dla pełnoletnich!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (customerAdult == DialogResult.Yes) checkedIfAdult = true;
                 else
@@ -149,6 +152,12 @@ namespace Sklep
         private void listaGrupProduktówToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var w = new ListProductGroupsWindow();
+            w.ShowDialog();
+        }
+
+        private void ustawieniaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new SettingsWindow();
             w.ShowDialog();
         }
 
