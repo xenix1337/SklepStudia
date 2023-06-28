@@ -173,5 +173,16 @@ namespace Sklep
         {
             checkedIfAdult = false; // Move this after payment, currently there is no finalization so I leave it here
         }
+
+        private void inwentarzToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stanMagazynuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListInventoryWindow();
+            w.ShowDialog();
+        }
     }
 }

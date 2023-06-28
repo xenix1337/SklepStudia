@@ -80,7 +80,6 @@
     <Compile Update="NewProductGroupWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="AudioResources.Designer.cs">
