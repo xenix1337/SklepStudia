@@ -44,7 +44,6 @@
             // 
             iloscNumericUpDown.Location = new System.Drawing.Point(194, 225);
             iloscNumericUpDown.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
-            iloscNumericUpDown.Minimum = new decimal(new int[] { 100000, 0, 0, int.MinValue });
             iloscNumericUpDown.Name = "iloscNumericUpDown";
             iloscNumericUpDown.Size = new System.Drawing.Size(282, 27);
             iloscNumericUpDown.TabIndex = 20;
@@ -126,7 +125,7 @@
             Controls.Add(kodKreskowyLabel);
             Controls.Add(kodKreskowyProduktuTextBox);
             Name = "InventoryChangeWindow";
-            Text = "InventoryChangeForm";
+            Text = "Wprowadź zmianę";
             Load += InventoryChangeForm_Load;
             ((System.ComponentModel.ISupportInitialize)iloscNumericUpDown).EndInit();
             ((System.ComponentModel.ISupportInitialize)scannerPictureBox).EndInit();

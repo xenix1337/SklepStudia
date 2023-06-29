@@ -35,11 +35,12 @@
             // changesDataGridView
             // 
             changesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            changesDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             changesDataGridView.Location = new System.Drawing.Point(0, 0);
             changesDataGridView.Name = "changesDataGridView";
             changesDataGridView.RowHeadersWidth = 51;
             changesDataGridView.RowTemplate.Height = 29;
-            changesDataGridView.Size = new System.Drawing.Size(1134, 567);
+            changesDataGridView.Size = new System.Drawing.Size(1131, 567);
             changesDataGridView.TabIndex = 0;
             // 
             // ListOfChangesWindow
@@ -49,7 +50,7 @@
             ClientSize = new System.Drawing.Size(1131, 567);
             Controls.Add(changesDataGridView);
             Name = "ListOfChangesWindow";
-            Text = "ListOfChangesWindow";
+            Text = "Historia zmian";
             Load += ListOfChangesWindow_Load;
             ((System.ComponentModel.ISupportInitialize)changesDataGridView).EndInit();
             ResumeLayout(false);

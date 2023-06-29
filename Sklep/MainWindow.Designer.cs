@@ -47,6 +47,7 @@ namespace Sklep
             inwenatrzToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             stanMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             historiaZmianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            changeStateToolStipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
@@ -54,7 +55,6 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
-            changeStateToolStipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -184,15 +184,22 @@ namespace Sklep
             // 
             stanMagazynuToolStripMenuItem.Name = "stanMagazynuToolStripMenuItem";
             stanMagazynuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            stanMagazynuToolStripMenuItem.Text = "Stan Magazynu";
+            stanMagazynuToolStripMenuItem.Text = "Stan magazynu";
             stanMagazynuToolStripMenuItem.Click += stanMagazynuToolStripMenuItem_Click;
             // 
             // historiaZmianToolStripMenuItem
             // 
             historiaZmianToolStripMenuItem.Name = "historiaZmianToolStripMenuItem";
             historiaZmianToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            historiaZmianToolStripMenuItem.Text = "Historia Zmian";
+            historiaZmianToolStripMenuItem.Text = "Historia zmian";
             historiaZmianToolStripMenuItem.Click += historiaZmianToolStripMenuItem_Click;
+            // 
+            // changeStateToolStipMenuItem
+            // 
+            changeStateToolStipMenuItem.Name = "changeStateToolStipMenuItem";
+            changeStateToolStipMenuItem.Size = new System.Drawing.Size(224, 26);
+            changeStateToolStipMenuItem.Text = "Wprowadź zmianę";
+            changeStateToolStipMenuItem.Click += changeStateToolStipMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -245,13 +252,6 @@ namespace Sklep
             sumOfProductPricesLabel.TabIndex = 7;
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // changeStateToolStipMenuItem
-            // 
-            changeStateToolStipMenuItem.Name = "changeStateToolStipMenuItem";
-            changeStateToolStipMenuItem.Size = new System.Drawing.Size(224, 26);
-            changeStateToolStipMenuItem.Text = "Wprowadź zmiane";
-            changeStateToolStipMenuItem.Click += changeStateToolStipMenuItem_Click;
             // 
             // MainWindow
             // 

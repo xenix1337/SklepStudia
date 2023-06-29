@@ -56,20 +56,27 @@ namespace Sklep
         {
             using (var db = new DatabaseContext())
             {
-                InventoryChange newInventoryChange = new InventoryChange
-                {
-                    PositionId = db.Products.Single(p => p.Barcode == kodKreskowyProduktuTextBox.Text).PositionId,
-                    Type = changeTypeComboBox.SelectedItem.ToString(),
-                    Amount = (int)iloscNumericUpDown.Value,
-                    Date = DateTime.Now.ToUniversalTime(),
-                };
-
-                if (newInventoryChange.PositionId == null)
+                var query = db.Products.SingleOrDefault(p => p.Barcode == kodKreskowyProduktuTextBox.Text);
+                if (query == null)
                 {
                     MessageBox.Show("Nie znaleziono produktu o podanym kodzie kreskowym", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                db.InventoryPositions.Single(p => p.Id == newInventoryChange.PositionId).Amount += (int)iloscNumericUpDown.Value;
+                InventoryChange newInventoryChange = new InventoryChange
+                {
+                    PositionId = query.PositionId,
+                    Type = changeTypeComboBox.SelectedItem.ToString(),
+                    Amount = (int)iloscNumericUpDown.Value,
+                    Date = DateTime.Now.ToUniversalTime(),
+                };
+                if (newInventoryChange.Type == "Sprzedaż" || newInventoryChange.Type == "Kradzież")
+                {
+                    db.InventoryPositions.Single(p => p.Id == newInventoryChange.PositionId).Amount -= (int)iloscNumericUpDown.Value;
+                }
+                else
+                {
+                    db.InventoryPositions.Single(p => p.Id == newInventoryChange.PositionId).Amount += (int)iloscNumericUpDown.Value;
+                }
                 db.InventoryChanges.Add(newInventoryChange);
                 db.SaveChanges();
             }

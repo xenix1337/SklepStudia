@@ -52,15 +52,15 @@ namespace Sklep
                 }
             };
             var query = (from InventoryPosition in db.InventoryPositions
-                join Product in db.Products
-                on InventoryPosition.Id equals Product.PositionId
-                select new
-                {
-                    Product = Product.LongName,
-                    Rack = InventoryPosition.Rack,
-                    Shelf = InventoryPosition.Shelf,
-                    Amount = InventoryPosition.Amount,
-                }).ToList();
+                         join Product in db.Products
+                         on InventoryPosition.Id equals Product.PositionId
+                         select new
+                         {
+                             Product = Product.LongName,
+                             Rack = InventoryPosition.Rack,
+                             Shelf = InventoryPosition.Shelf,
+                             Amount = InventoryPosition.Amount,
+                         }).ToList();
 
             inventoryDataGridView.AutoGenerateColumns = false;
             inventoryDataGridView.Columns.Clear();

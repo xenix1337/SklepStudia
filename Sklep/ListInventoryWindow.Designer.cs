@@ -42,11 +42,12 @@
             // inventoryDataGridView
             // 
             inventoryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            inventoryDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             inventoryDataGridView.Location = new System.Drawing.Point(0, 0);
             inventoryDataGridView.Name = "inventoryDataGridView";
             inventoryDataGridView.RowHeadersWidth = 51;
             inventoryDataGridView.RowTemplate.Height = 29;
-            inventoryDataGridView.Size = new System.Drawing.Size(803, 451);
+            inventoryDataGridView.Size = new System.Drawing.Size(800, 450);
             inventoryDataGridView.TabIndex = 0;
             // 
             // ListInventoryWindow
@@ -56,7 +57,8 @@
             ClientSize = new System.Drawing.Size(800, 450);
             Controls.Add(inventoryDataGridView);
             Name = "ListInventoryWindow";
-            Text = "ListInventoryWindow";
+            Text = "Stan magazynu";
+            WindowState = System.Windows.Forms.FormWindowState.Maximized;
             Load += ListInventoryWindow_Load;
             ((System.ComponentModel.ISupportInitialize)inventoryPositionBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)inventoryDataGridView).EndInit();
