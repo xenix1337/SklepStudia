@@ -184,5 +184,18 @@ namespace Sklep
             var w = new ListInventoryWindow();
             w.ShowDialog();
         }
+
+        private void historiaZmianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListOfChangesWindow();
+            w.ShowDialog();
+        }
+
+
+        private void changeStateToolStipMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new InventoryChangeWindow();
+            w.ShowDialog();
+        }
     }
 }

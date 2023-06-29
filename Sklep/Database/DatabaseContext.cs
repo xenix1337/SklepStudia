@@ -12,7 +12,7 @@ namespace Sklep.Database
         public DbSet<ProductCategory> Categories { get; set; }
         public DbSet<ProductGroup> ProductGroups { get; set; }
         public DbSet<InventoryPosition> InventoryPositions { get; set; }
-
+        public DbSet<InventoryChange> InventoryChanges { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().ToTable("product");

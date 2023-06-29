@@ -45,6 +45,8 @@ namespace Sklep
             listaGrupProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             inwenatrzToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            stanMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            historiaZmianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
@@ -52,7 +54,7 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
-            stanMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            changeStateToolStipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -172,11 +174,25 @@ namespace Sklep
             // 
             // inwenatrzToolStripMenuItem
             // 
-            inwenatrzToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { stanMagazynuToolStripMenuItem });
+            inwenatrzToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { stanMagazynuToolStripMenuItem, historiaZmianToolStripMenuItem, changeStateToolStipMenuItem });
             inwenatrzToolStripMenuItem.Name = "inwenatrzToolStripMenuItem";
             inwenatrzToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
             inwenatrzToolStripMenuItem.Text = "Inwentarz";
             inwenatrzToolStripMenuItem.Click += inwentarzToolStripMenuItem_Click;
+            // 
+            // stanMagazynuToolStripMenuItem
+            // 
+            stanMagazynuToolStripMenuItem.Name = "stanMagazynuToolStripMenuItem";
+            stanMagazynuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            stanMagazynuToolStripMenuItem.Text = "Stan Magazynu";
+            stanMagazynuToolStripMenuItem.Click += stanMagazynuToolStripMenuItem_Click;
+            // 
+            // historiaZmianToolStripMenuItem
+            // 
+            historiaZmianToolStripMenuItem.Name = "historiaZmianToolStripMenuItem";
+            historiaZmianToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            historiaZmianToolStripMenuItem.Text = "Historia Zmian";
+            historiaZmianToolStripMenuItem.Click += historiaZmianToolStripMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -230,12 +246,12 @@ namespace Sklep
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // stanMagazynuToolStripMenuItem
+            // changeStateToolStipMenuItem
             // 
-            stanMagazynuToolStripMenuItem.Name = "stanMagazynuToolStripMenuItem";
-            stanMagazynuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            stanMagazynuToolStripMenuItem.Text = "Stan Magazynu";
-            stanMagazynuToolStripMenuItem.Click += stanMagazynuToolStripMenuItem_Click;
+            changeStateToolStipMenuItem.Name = "changeStateToolStipMenuItem";
+            changeStateToolStipMenuItem.Size = new System.Drawing.Size(224, 26);
+            changeStateToolStipMenuItem.Text = "Wprowadź zmiane";
+            changeStateToolStipMenuItem.Click += changeStateToolStipMenuItem_Click;
             // 
             // MainWindow
             // 
@@ -295,6 +311,8 @@ namespace Sklep
         private System.Windows.Forms.ToolStripMenuItem ustawieniaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inwenatrzToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stanMagazynuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historiaZmianToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeStateToolStipMenuItem;
     }
 }
 
