@@ -37,12 +37,17 @@ namespace Sklep
             BarCodeLabel = new System.Windows.Forms.Label();
             menuStrip = new System.Windows.Forms.MenuStrip();
             programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ustawieniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             produktyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujNowyProduktToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listaProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujGrupęProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listaGrupProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            inwenatrzToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            stanMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            historiaZmianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            changeStateToolStipMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip = new System.Windows.Forms.StatusStrip();
             statusStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             barcodeScannerBindingSource = new System.Windows.Forms.BindingSource(components);
@@ -50,7 +55,6 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
-            ustawieniaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -105,7 +109,7 @@ namespace Sklep
             // menuStrip
             // 
             menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { programToolStripMenuItem, produktyToolStripMenuItem, raportyToolStripMenuItem });
+            menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { programToolStripMenuItem, produktyToolStripMenuItem, raportyToolStripMenuItem, inwenatrzToolStripMenuItem });
             menuStrip.Location = new System.Drawing.Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
@@ -119,6 +123,13 @@ namespace Sklep
             programToolStripMenuItem.Name = "programToolStripMenuItem";
             programToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
             programToolStripMenuItem.Text = "Program";
+            // 
+            // ustawieniaToolStripMenuItem
+            // 
+            ustawieniaToolStripMenuItem.Name = "ustawieniaToolStripMenuItem";
+            ustawieniaToolStripMenuItem.Size = new System.Drawing.Size(164, 26);
+            ustawieniaToolStripMenuItem.Text = "Ustawienia";
+            ustawieniaToolStripMenuItem.Click += ustawieniaToolStripMenuItem_Click;
             // 
             // produktyToolStripMenuItem
             // 
@@ -160,6 +171,35 @@ namespace Sklep
             raportyToolStripMenuItem.Name = "raportyToolStripMenuItem";
             raportyToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             raportyToolStripMenuItem.Text = "Raporty";
+            // 
+            // inwenatrzToolStripMenuItem
+            // 
+            inwenatrzToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { stanMagazynuToolStripMenuItem, historiaZmianToolStripMenuItem, changeStateToolStipMenuItem });
+            inwenatrzToolStripMenuItem.Name = "inwenatrzToolStripMenuItem";
+            inwenatrzToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
+            inwenatrzToolStripMenuItem.Text = "Inwentarz";
+            inwenatrzToolStripMenuItem.Click += inwentarzToolStripMenuItem_Click;
+            // 
+            // stanMagazynuToolStripMenuItem
+            // 
+            stanMagazynuToolStripMenuItem.Name = "stanMagazynuToolStripMenuItem";
+            stanMagazynuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            stanMagazynuToolStripMenuItem.Text = "Stan magazynu";
+            stanMagazynuToolStripMenuItem.Click += stanMagazynuToolStripMenuItem_Click;
+            // 
+            // historiaZmianToolStripMenuItem
+            // 
+            historiaZmianToolStripMenuItem.Name = "historiaZmianToolStripMenuItem";
+            historiaZmianToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            historiaZmianToolStripMenuItem.Text = "Historia zmian";
+            historiaZmianToolStripMenuItem.Click += historiaZmianToolStripMenuItem_Click;
+            // 
+            // changeStateToolStipMenuItem
+            // 
+            changeStateToolStipMenuItem.Name = "changeStateToolStipMenuItem";
+            changeStateToolStipMenuItem.Size = new System.Drawing.Size(224, 26);
+            changeStateToolStipMenuItem.Text = "Wprowadź zmianę";
+            changeStateToolStipMenuItem.Click += changeStateToolStipMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -212,13 +252,6 @@ namespace Sklep
             sumOfProductPricesLabel.TabIndex = 7;
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // ustawieniaToolStripMenuItem
-            // 
-            ustawieniaToolStripMenuItem.Name = "ustawieniaToolStripMenuItem";
-            ustawieniaToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            ustawieniaToolStripMenuItem.Text = "Ustawienia";
-            ustawieniaToolStripMenuItem.Click += ustawieniaToolStripMenuItem_Click;
             // 
             // MainWindow
             // 
@@ -276,6 +309,10 @@ namespace Sklep
         private System.Windows.Forms.Label sumLabel;
         private System.Windows.Forms.Label sumOfProductPricesLabel;
         private System.Windows.Forms.ToolStripMenuItem ustawieniaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inwenatrzToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stanMagazynuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem historiaZmianToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeStateToolStipMenuItem;
     }
 }
 

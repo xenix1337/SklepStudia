@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sklep.Database.Models
 {
-    public class Product
+    public class InventoryChange
     {
         public int Id { get; set; }
-        public string ShortName { get; set; }
-        public string LongName { get; set; }
-        public double Price { get; set; }
-        public string Barcode { get; set; }
-        public int? CategoryId { get; set; }
-        public ProductCategory Category { get; set; }
         public int? PositionId { get; set; }
         public InventoryPosition Position { get; set; }
-
+        public string Type { get; set; }
+        public int Amount { get; set; }
+        public DateTime Date { get; set; }
     }
 }
