@@ -16,9 +16,9 @@ namespace SklepTests
         }
 
         [TestMethod]
-        public void InalidCodes()
+        public void InvalidCodes()
         {
-            var barcodes = new[] { "9788381882117", "1234567890123", "123456789012", "qwertyasdfghz" };
+            var barcodes = new[] { "9788381882117", "1234567890123", "123456789012", "qwertyasdfghz", "" };
             foreach (var code in barcodes)
             {
                 Assert.IsFalse(EANValidator.validateBarcode(code), "Code " + code + " should be invalid");
