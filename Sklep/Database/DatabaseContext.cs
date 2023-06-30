@@ -4,7 +4,7 @@ using EFCore.NamingConventions;
 
 namespace Sklep.Database
 {
-    internal class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DatabaseContext() : base() { }
 
