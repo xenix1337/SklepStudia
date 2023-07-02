@@ -13,7 +13,7 @@ namespace Sklep.Utils
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
             string[] lines = File.ReadAllLines(filename);
-            foreach(string line in lines)
+            foreach (string line in lines)
             {
                 string key = line.Split('=')[0];
                 string value = line.Split('=')[1];

@@ -178,7 +178,6 @@ namespace Sklep
             inwenatrzToolStripMenuItem.Name = "inwenatrzToolStripMenuItem";
             inwenatrzToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
             inwenatrzToolStripMenuItem.Text = "Inwentarz";
-            inwenatrzToolStripMenuItem.Click += inwentarzToolStripMenuItem_Click;
             // 
             // stanMagazynuToolStripMenuItem
             // 
@@ -302,7 +301,7 @@ namespace Sklep
         private System.Windows.Forms.ToolStripMenuItem zarejestrujGrupęProduktówToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaGrupProduktówToolStripMenuItem;
         private System.Windows.Forms.BindingSource barcodeScannerBindingSource;
-        private ReceiptPosition receiptPosition1;
+        private ReceiptPositionControl receiptPosition1;
         private System.CodeDom.CodeTypeReference receiptPosition2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.FlowLayoutPanel listOfProducts;

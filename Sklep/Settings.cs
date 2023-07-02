@@ -20,6 +20,7 @@ namespace Sklep
     {
         public static Settings current;
         private static string path = "./settings.json";
+
         public static void Load()
         {
             if (File.Exists(path))
@@ -27,7 +28,8 @@ namespace Sklep
                 string fileContent = File.ReadAllText(path);
                 current = JsonConvert.DeserializeObject<Settings>(fileContent);
             }
-            else current = new Settings();
+            else
+                current = new Settings();
         }
 
         public static void Save()

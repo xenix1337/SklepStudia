@@ -13,7 +13,7 @@ using Sklep.Database.Models;
 
 namespace Sklep
 {
-    public partial class ReceiptPosition : Control
+    public partial class ReceiptPositionControl : Control
     {
         public event EventHandler<string> RemoveButtonClick;
         private Label _productLongName;
@@ -25,10 +25,7 @@ namespace Sklep
         public decimal priceDecimal;
         public decimal PricePerUnit
         {
-            get
-            {
-                return _pricePerUnitDecimal;
-            }
+            get { return _pricePerUnitDecimal; }
             set
             {
                 _pricePerUnit.Text = value.ToString() + " PLN";
@@ -37,30 +34,17 @@ namespace Sklep
         }
         public decimal Amount
         {
-            get
-            {
-                return _amount.Value;
-            }
-            set
-            {
-                _amount.Value = value;
-            }
+            get { return _amount.Value; }
+            set { _amount.Value = value; }
         }
         public string ProductLongName
         {
-            get
-            {
-                return _productLongName.Text;
-            }
-            set
-            {
-                _productLongName.Text = value;
-            }
+            get { return _productLongName.Text; }
+            set { _productLongName.Text = value; }
         }
         public string barcode;
 
-
-        public ReceiptPosition()
+        public ReceiptPositionControl()
         {
             InitializeComponent();
             _productLongName = new Label()
@@ -128,14 +112,21 @@ namespace Sklep
 
         void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            priceDecimal = Math.Round(_amount.Value * PricePerUnit, 2, MidpointRounding.ToPositiveInfinity);
+            priceDecimal = Math.Round(
+                _amount.Value * PricePerUnit,
+                2,
+                MidpointRounding.ToPositiveInfinity
+            );
             _price.Text = priceDecimal.ToString() + " PLN";
         }
+
         protected virtual void OnRemoveButtonClick(string barcode)
         {
             RemoveButtonClick?.Invoke(this, barcode);
         }
-        public ReceiptPosition(Product product) : this()
+
+        public ReceiptPositionControl(Product product)
+            : this()
         {
             barcode = product.Barcode;
             ProductLongName = product.LongName;
@@ -144,17 +135,16 @@ namespace Sklep
             Size = new Size(550, 24);
         }
 
-
         [Category("Custom")]
         [Browsable(true)]
         [Description("Control for listing positions on receipt")]
-        [Editor(typeof(System.Windows.Forms.Design.WindowsFormsComponentEditor), typeof(System.Drawing.Design.UITypeEditor))]
-
+        [Editor(
+            typeof(System.Windows.Forms.Design.WindowsFormsComponentEditor),
+            typeof(System.Drawing.Design.UITypeEditor)
+        )]
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
         }
-
-
     }
 }

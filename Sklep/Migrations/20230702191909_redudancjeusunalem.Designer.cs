@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sklep.Database;
@@ -11,9 +12,11 @@ using Sklep.Database;
 namespace Sklep.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230702191909_redudancjeusunalem")]
+    partial class redudancjeusunalem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,26 +188,7 @@ namespace Sklep.Migrations
                     b.ToTable("product_group", (string)null);
                 });
 
-            modelBuilder.Entity("Sklep.Database.Models.Receipt", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("date");
-
-                    b.HasKey("Id")
-                        .HasName("pk_receipt");
-
-                    b.ToTable("receipt", (string)null);
-                });
-
-            modelBuilder.Entity("Sklep.Database.Models.ReceiptPosition", b =>
+            modelBuilder.Entity("Sklep.Database.Models.ReceipPosition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,6 +219,25 @@ namespace Sklep.Migrations
                         .HasDatabaseName("ix_receipt_position_receipt_id");
 
                     b.ToTable("receipt_position", (string)null);
+                });
+
+            modelBuilder.Entity("Sklep.Database.Models.Receipt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date");
+
+                    b.HasKey("Id")
+                        .HasName("pk_receipt");
+
+                    b.ToTable("receipt", (string)null);
                 });
 
             modelBuilder.Entity("Sklep.Database.Models.InventoryChange", b =>
@@ -274,7 +277,7 @@ namespace Sklep.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Sklep.Database.Models.ReceiptPosition", b =>
+            modelBuilder.Entity("Sklep.Database.Models.ReceipPosition", b =>
                 {
                     b.HasOne("Sklep.Database.Models.Product", "Product")
                         .WithMany()

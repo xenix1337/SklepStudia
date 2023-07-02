@@ -9,19 +9,32 @@ namespace SklepTests
         public void ValidCodes()
         {
             var barcodes = new[] { "9788381882118", "1234567890128" };
-            foreach(var code in barcodes)
+            foreach (var code in barcodes)
             {
-                Assert.IsTrue(EANValidator.validateBarcode(code), "Code " + code + " should be valid");
+                Assert.IsTrue(
+                    EANValidator.validateBarcode(code),
+                    "Code " + code + " should be valid"
+                );
             }
         }
 
         [TestMethod]
         public void InvalidCodes()
         {
-            var barcodes = new[] { "9788381882117", "1234567890123", "123456789012", "qwertyasdfghz", "" };
+            var barcodes = new[]
+            {
+                "9788381882117",
+                "1234567890123",
+                "123456789012",
+                "qwertyasdfghz",
+                ""
+            };
             foreach (var code in barcodes)
             {
-                Assert.IsFalse(EANValidator.validateBarcode(code), "Code " + code + " should be invalid");
+                Assert.IsFalse(
+                    EANValidator.validateBarcode(code),
+                    "Code " + code + " should be invalid"
+                );
             }
         }
     }

@@ -28,7 +28,8 @@ namespace Sklep
             db.Products.Load();
             db.Categories.Load();
 
-            DataGridViewColumn[] columns = {
+            DataGridViewColumn[] columns =
+            {
                 new DataGridViewTextBoxColumn()
                 {
                     HeaderText = "Kod kreskowy",
@@ -45,11 +46,7 @@ namespace Sklep
                     DataPropertyName = "LongName",
                     Width = 200
                 },
-                new DataGridViewTextBoxColumn()
-                {
-                    HeaderText = "Cena",
-                    DataPropertyName = "Price"
-                },
+                new DataGridViewTextBoxColumn() { HeaderText = "Cena", DataPropertyName = "Price" },
                 new DataGridViewComboBoxColumn()
                 {
                     HeaderText = "Kategoria",
@@ -70,18 +67,30 @@ namespace Sklep
                 productDataGridView.Columns.Add(column);
             }
         }
-        private void productDataGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+
+        private void productDataGridView_CellValueChanged(
+            object sender,
+            DataGridViewCellEventArgs e
+        )
         {
             changes = true;
         }
 
         private void ListProductsWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!changes) return;
+            if (!changes)
+                return;
 
-            var result = MessageBox.Show("Czy chcesz zapisać zmiany?", "Niezapisane zmiany", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes) db.SaveChanges();
-            else if (result == DialogResult.Cancel) e.Cancel = true;
+            var result = MessageBox.Show(
+                "Czy chcesz zapisać zmiany?",
+                "Niezapisane zmiany",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Warning
+            );
+            if (result == DialogResult.Yes)
+                db.SaveChanges();
+            else if (result == DialogResult.Cancel)
+                e.Cancel = true;
         }
     }
 }

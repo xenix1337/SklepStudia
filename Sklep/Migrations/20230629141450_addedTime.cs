@@ -17,7 +17,8 @@ namespace Sklep.Migrations
                 type: "timestamp with time zone",
                 nullable: false,
                 oldClrType: typeof(DateOnly),
-                oldType: "date");
+                oldType: "date"
+            );
         }
 
         /// <inheritdoc />
@@ -29,7 +30,8 @@ namespace Sklep.Migrations
                 type: "date",
                 nullable: false,
                 oldClrType: typeof(DateTime),
-                oldType: "timestamp with time zone");
+                oldType: "timestamp with time zone"
+            );
         }
     }
 }

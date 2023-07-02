@@ -42,7 +42,7 @@
             // 
             // iloscNumericUpDown
             // 
-            iloscNumericUpDown.Location = new System.Drawing.Point(194, 225);
+            iloscNumericUpDown.Location = new System.Drawing.Point(195, 225);
             iloscNumericUpDown.Maximum = new decimal(new int[] { 100000, 0, 0, 0 });
             iloscNumericUpDown.Name = "iloscNumericUpDown";
             iloscNumericUpDown.Size = new System.Drawing.Size(282, 27);
