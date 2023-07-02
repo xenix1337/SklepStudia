@@ -51,14 +51,13 @@ namespace Sklep
 
         private void BarcodeScanner_CodeScanned(object sender, string code)
         {
-            if (!CanFocus) return;
-
             barCodeTextBox.Invoke(new MethodInvoker(delegate ()
             {
+                if (!CanFocus) return;
+                
                 barCodeTextBox.Text = code;
+                addProductToList(code);
             }));
-            addProductToList(code);
-
         }
         private void updateSum()
         {
