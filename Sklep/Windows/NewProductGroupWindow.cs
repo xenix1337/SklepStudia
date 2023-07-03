@@ -52,9 +52,14 @@ namespace Sklep
                     Amount = (int)iloscNumericUpDown.Value
                 };
 
-                if(newProductGroup.Product == null)
+                if (newProductGroup.Product == null)
                 {
-                    MessageBox.Show("Nie znaleziono produktu o podanym kodzie kreskowym", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        "Nie znaleziono produktu o podanym kodzie kreskowym",
+                        "Błąd",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
                     return;
                 }
 
@@ -66,26 +71,31 @@ namespace Sklep
             Close();
         }
 
-
         private void ValidateGroupBarcode()
         {
             bool valid = true;
-            if (!EANValidator.validateBarcode(kodKreskowyGrupyTextBox.Text)) valid = false;
+            if (!EANValidator.validateBarcode(kodKreskowyGrupyTextBox.Text))
+                valid = false;
 
-            kodKreskowyGrupyTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
+            kodKreskowyGrupyTextBox.BackColor = valid
+                ? defaultBackgroundColor
+                : invalidBackgroundColor;
             validField[0] = valid;
             UpdateButtonEnabled();
         }
+
         private void ValidateProductBarcode()
         {
             bool valid = true;
-            if (!EANValidator.validateBarcode(kodKreskowyProduktuTextBox.Text)) valid = false;
+            if (!EANValidator.validateBarcode(kodKreskowyProduktuTextBox.Text))
+                valid = false;
 
-            kodKreskowyProduktuTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
+            kodKreskowyProduktuTextBox.BackColor = valid
+                ? defaultBackgroundColor
+                : invalidBackgroundColor;
             validField[1] = valid;
             UpdateButtonEnabled();
         }
-
 
         private void kodKreskowyGrupyTextBox_TextChanged(object sender, EventArgs e)
         {

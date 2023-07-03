@@ -16,7 +16,8 @@ namespace Sklep.Migrations
                 type: "text",
                 nullable: true,
                 oldClrType: typeof(int),
-                oldType: "integer");
+                oldType: "integer"
+            );
         }
 
         /// <inheritdoc />
@@ -30,7 +31,8 @@ namespace Sklep.Migrations
                 defaultValue: 0,
                 oldClrType: typeof(string),
                 oldType: "text",
-                oldNullable: true);
+                oldNullable: true
+            );
         }
     }
 }

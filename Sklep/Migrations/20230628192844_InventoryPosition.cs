@@ -15,34 +15,43 @@ namespace Sklep.Migrations
                 name: "position_id",
                 table: "product",
                 type: "integer",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.CreateTable(
                 name: "inventory_position",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    rack = table.Column<int>(type: "integer", nullable: false),
-                    shelf = table.Column<int>(type: "integer", nullable: false),
-                    amount = table.Column<int>(type: "integer", nullable: false)
-                },
+                columns: table =>
+                    new
+                    {
+                        id = table
+                            .Column<int>(type: "integer", nullable: false)
+                            .Annotation(
+                                "Npgsql:ValueGenerationStrategy",
+                                NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                            ),
+                        rack = table.Column<int>(type: "integer", nullable: false),
+                        shelf = table.Column<int>(type: "integer", nullable: false),
+                        amount = table.Column<int>(type: "integer", nullable: false)
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_inventory_position", x => x.id);
-                });
+                }
+            );
 
             migrationBuilder.CreateIndex(
                 name: "ix_product_position_id",
                 table: "product",
-                column: "position_id");
+                column: "position_id"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "fk_product_inventory_positions_position_id",
                 table: "product",
                 column: "position_id",
                 principalTable: "inventory_position",
-                principalColumn: "id");
+                principalColumn: "id"
+            );
         }
 
         /// <inheritdoc />
@@ -50,18 +59,14 @@ namespace Sklep.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "fk_product_inventory_positions_position_id",
-                table: "product");
+                table: "product"
+            );
 
-            migrationBuilder.DropTable(
-                name: "inventory_position");
+            migrationBuilder.DropTable(name: "inventory_position");
 
-            migrationBuilder.DropIndex(
-                name: "ix_product_position_id",
-                table: "product");
+            migrationBuilder.DropIndex(name: "ix_product_position_id", table: "product");
 
-            migrationBuilder.DropColumn(
-                name: "position_id",
-                table: "product");
+            migrationBuilder.DropColumn(name: "position_id", table: "product");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sklep.Database;
@@ -11,9 +12,11 @@ using Sklep.Database;
 namespace Sklep.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230701143128_receiptsContex")]
+    partial class receiptsContex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,8 +34,8 @@ namespace Sklep.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric")
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer")
                         .HasColumnName("amount");
 
                     b.Property<DateTime>("Date")
@@ -65,8 +68,8 @@ namespace Sklep.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric")
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer")
                         .HasColumnName("amount");
 
                     b.Property<int>("Rack")
@@ -204,7 +207,7 @@ namespace Sklep.Migrations
                     b.ToTable("receipt", (string)null);
                 });
 
-            modelBuilder.Entity("Sklep.Database.Models.ReceiptPosition", b =>
+            modelBuilder.Entity("Sklep.Database.Models.ReceiptItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -213,9 +216,13 @@ namespace Sklep.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric")
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer")
                         .HasColumnName("amount");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("integer")
+                        .HasColumnName("price");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer")
@@ -225,16 +232,20 @@ namespace Sklep.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("receipt_id");
 
+                    b.Property<int>("UnitPrice")
+                        .HasColumnType("integer")
+                        .HasColumnName("unit_price");
+
                     b.HasKey("Id")
-                        .HasName("pk_receipt_position");
+                        .HasName("pk_receipt_item");
 
                     b.HasIndex("ProductId")
-                        .HasDatabaseName("ix_receipt_position_product_id");
+                        .HasDatabaseName("ix_receipt_item_product_id");
 
                     b.HasIndex("ReceiptId")
-                        .HasDatabaseName("ix_receipt_position_receipt_id");
+                        .HasDatabaseName("ix_receipt_item_receipt_id");
 
-                    b.ToTable("receipt_position", (string)null);
+                    b.ToTable("receipt_item", (string)null);
                 });
 
             modelBuilder.Entity("Sklep.Database.Models.InventoryChange", b =>
@@ -274,21 +285,21 @@ namespace Sklep.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Sklep.Database.Models.ReceiptPosition", b =>
+            modelBuilder.Entity("Sklep.Database.Models.ReceiptItem", b =>
                 {
                     b.HasOne("Sklep.Database.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_receipt_position_product_product_id");
+                        .HasConstraintName("fk_receipt_item_product_product_id");
 
                     b.HasOne("Sklep.Database.Models.Receipt", "Receipt")
-                        .WithMany("ReceiptPositions")
+                        .WithMany("ReceiptItems")
                         .HasForeignKey("ReceiptId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_receipt_position_receipts_receipt_id");
+                        .HasConstraintName("fk_receipt_item_receipts_receipt_id");
 
                     b.Navigation("Product");
 
@@ -297,7 +308,7 @@ namespace Sklep.Migrations
 
             modelBuilder.Entity("Sklep.Database.Models.Receipt", b =>
                 {
-                    b.Navigation("ReceiptPositions");
+                    b.Navigation("ReceiptItems");
                 });
 #pragma warning restore 612, 618
         }

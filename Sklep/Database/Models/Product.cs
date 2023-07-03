@@ -17,6 +17,5 @@ namespace Sklep.Database.Models
         public ProductCategory Category { get; set; }
         public int? PositionId { get; set; }
         public InventoryPosition Position { get; set; }
-
     }
 }

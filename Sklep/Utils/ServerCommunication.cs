@@ -1,32 +1,22 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Sklep
+namespace Sklep.Utils
 {
     internal class ServerCommunication
     {
         public static dynamic ScanProduct(string barcode)
         {
-            var messageObject = new
-            {
-                command = "scanProduct",
-                data = new
-                {
-                    barcode = barcode,
-                }
-            };
+            var messageObject = new { command = "scanProduct", data = new { barcode, } };
 
             return JsonConvert.DeserializeObject(SendRequest(messageObject));
         }
 
-        public static dynamic FinalizeCart(object cart)
+        public static dynamic FinalizeCart(Dictionary<string, decimal> cart)
         {
-            var messageObject = new
-            {
-                command = "finalizeCart",
-                data = cart
-            };
+            var messageObject = new { command = "finalizeCart", data = cart };
 
             return JsonConvert.DeserializeObject(SendRequest(messageObject));
         }

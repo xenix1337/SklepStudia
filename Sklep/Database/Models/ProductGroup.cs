@@ -13,16 +13,12 @@ namespace Sklep.Database.Models
         public int Id { get; set; }
         public string GroupBarcode { get; set; }
         public Product Product { get; set; }
+
         [NotMapped]
-        public string ProductBarcode { 
-            get
-            {
-                return Product?.Barcode;
-            }
-            set
-            {
-                
-            }
+        public string ProductBarcode
+        {
+            get { return Product?.Barcode; }
+            set { }
         }
         public int Amount { get; set; }
     }

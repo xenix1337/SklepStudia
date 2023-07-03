@@ -16,6 +16,7 @@ namespace Sklep
     public partial class ListInventoryWindow : Form
     {
         private DatabaseContext db;
+
         public ListInventoryWindow()
         {
             InitializeComponent();
@@ -25,7 +26,8 @@ namespace Sklep
         {
             db = new DatabaseContext();
 
-            DataGridViewColumn[] columns = {
+            DataGridViewColumn[] columns =
+            {
                 new DataGridViewTextBoxColumn()
                 {
                     HeaderText = "Produkt",
@@ -51,16 +53,17 @@ namespace Sklep
                     DataPropertyName = "Amount",
                 }
             };
-            var query = (from InventoryPosition in db.InventoryPositions
-                         join Product in db.Products
-                         on InventoryPosition.Id equals Product.PositionId
-                         select new
-                         {
-                             Product = Product.LongName,
-                             Rack = InventoryPosition.Rack,
-                             Shelf = InventoryPosition.Shelf,
-                             Amount = InventoryPosition.Amount,
-                         }).ToList();
+            var query = (
+                from InventoryPosition in db.InventoryPositions
+                join Product in db.Products on InventoryPosition.Id equals Product.PositionId
+                select new
+                {
+                    Product = Product.LongName,
+                    Rack = InventoryPosition.Rack,
+                    Shelf = InventoryPosition.Shelf,
+                    Amount = InventoryPosition.Amount,
+                }
+            ).ToList();
 
             inventoryDataGridView.AutoGenerateColumns = false;
             inventoryDataGridView.Columns.Clear();

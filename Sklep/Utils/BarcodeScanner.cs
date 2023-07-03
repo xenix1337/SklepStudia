@@ -11,6 +11,7 @@ using ZXing.Windows.Compatibility;
 using AForge.Imaging.Filters;
 using System.Drawing;
 using System.Windows.Forms;
+
 namespace Sklep.Utils
 {
     public class BarcodeScanner
@@ -25,32 +26,46 @@ namespace Sklep.Utils
         VideoCaptureDevice videoCaptureDevice;
         ContrastCorrection filter;
         BarcodeReader reader;
+
         public BarcodeScanner()
         {
-            filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice); ;
-            videoCaptureDevice = new VideoCaptureDevice(filterInfoCollection[cameraIndex].MonikerString);
+            filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            ;
+            videoCaptureDevice = new VideoCaptureDevice(
+                filterInfoCollection[cameraIndex].MonikerString
+            );
             filter = new ContrastCorrection(60);
             reader = new BarcodeReader();
             reader.Options.TryHarder = true;
         }
+
         public void startScanning()
         {
             videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
             videoCaptureDevice.Start();
         }
-        private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
+
+        private void VideoCaptureDevice_NewFrame(
+            object sender,
+            AForge.Video.NewFrameEventArgs eventArgs
+        )
         {
             Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
             filter.ApplyInPlace(bitmap);
             var result = reader.Decode(bitmap);
-            if(pictureBoxes.Count > 0)
+            if (pictureBoxes.Count > 0)
             {
                 pictureBoxes.Peek().Image = bitmap;
             }
 
-            if (result == null || !EANValidator.validateBarcode(result.ToString())) return;
-            if (DateTime.Now.Subtract(lastScanTime).TotalSeconds <= 2 && result.ToString() == lastScannedBarcode) return;
-            
+            if (result == null || !EANValidator.validateBarcode(result.ToString()))
+                return;
+            if (
+                DateTime.Now.Subtract(lastScanTime).TotalSeconds <= 2
+                && result.ToString() == lastScannedBarcode
+            )
+                return;
+
             lastScanTime = DateTime.Now;
             lastScannedBarcode = result.ToString();
             OnScanningCompleted(result.ToString());
@@ -60,6 +75,7 @@ namespace Sklep.Utils
         {
             CodeScanned?.Invoke(this, code);
         }
+
         public void stopScanning()
         {
             if (videoCaptureDevice != null && videoCaptureDevice.IsRunning)
@@ -69,11 +85,9 @@ namespace Sklep.Utils
             }
         }
 
-
         ~BarcodeScanner()
         {
             stopScanning();
         }
-
     }
 }

@@ -16,15 +16,14 @@ namespace Sklep.Migrations
                 table: "inventory_change",
                 type: "date",
                 nullable: false,
-                defaultValue: new DateOnly(1, 1, 1));
+                defaultValue: new DateOnly(1, 1, 1)
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "date",
-                table: "inventory_change");
+            migrationBuilder.DropColumn(name: "date", table: "inventory_change");
         }
     }
 }

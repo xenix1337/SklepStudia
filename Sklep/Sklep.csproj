@@ -74,10 +74,10 @@
     <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.12" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ListProductGroupsWindow.cs">
+    <Compile Update="Windows\ListProductGroupsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="NewProductGroupWindow.cs">
+    <Compile Update="Windows\NewProductGroupWindow.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -93,5 +93,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AudioResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Receipts\" />
   </ItemGroup>
 </Project>

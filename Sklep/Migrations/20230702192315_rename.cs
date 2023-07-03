@@ -5,7 +5,7 @@
 namespace Sklep.Migrations
 {
     /// <inheritdoc />
-    public partial class fix2 : Migration
+    public partial class rename : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder) { }

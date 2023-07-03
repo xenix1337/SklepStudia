@@ -87,7 +87,8 @@ namespace Sklep
         private void ValidateBarcode()
         {
             bool valid = true;
-            if (!EANValidator.validateBarcode(kodKreskowyTextBox.Text)) valid = false;
+            if (!EANValidator.validateBarcode(kodKreskowyTextBox.Text))
+                valid = false;
 
             kodKreskowyTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
             validField[0] = valid;
@@ -102,7 +103,8 @@ namespace Sklep
         private void ValidateShortName()
         {
             bool valid = true;
-            if (nazwaKrotkaTextBox.Text.Length <= 0) valid = false;
+            if (nazwaKrotkaTextBox.Text.Length <= 0)
+                valid = false;
 
             nazwaKrotkaTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
             validField[1] = valid;
@@ -117,7 +119,8 @@ namespace Sklep
         private void ValidateLongName()
         {
             bool valid = true;
-            if (nazwaDlugaTextBox.Text.Length <= 0) valid = false;
+            if (nazwaDlugaTextBox.Text.Length <= 0)
+                valid = false;
 
             nazwaDlugaTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
             validField[2] = valid;
@@ -133,9 +136,12 @@ namespace Sklep
         {
             bool valid = true;
             double price = 0;
-            if (!double.TryParse(cenaTextBox.Text, out price)) valid = false;
-            if (price < 0) valid = false;
-            if (Math.Abs(Math.Round(price * 100) - price * 100) > double.Epsilon * 10) valid = false;
+            if (!double.TryParse(cenaTextBox.Text, out price))
+                valid = false;
+            if (price < 0)
+                valid = false;
+            if (Math.Abs(Math.Round(price * 100) - price * 100) > double.Epsilon * 10)
+                valid = false;
 
             cenaTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
             validField[3] = valid;

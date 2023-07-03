@@ -18,12 +18,13 @@ namespace Sklep.Database
         public string GetConnectionString()
         {
             return String.Format(
-                    "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
-                    Host,
-                    User,
-                    DBname,
-                    Port,
-                    Password);
+                "Server={0};Username={1};Database={2};Port={3};Password={4};SSLMode=Prefer",
+                Host,
+                User,
+                DBname,
+                Port,
+                Password
+            );
         }
 
         public static DatabaseConnectionSettings FromEnv()

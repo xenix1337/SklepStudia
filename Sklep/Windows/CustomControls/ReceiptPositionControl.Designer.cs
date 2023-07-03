@@ -1,6 +1,6 @@
 ﻿namespace Sklep
 {
-    partial class ReceiptPosition
+    partial class ReceiptPositionControl
     {
         /// <summary>
         /// Wymagana zmienna projektanta.

@@ -15,15 +15,18 @@ namespace Sklep
     public partial class ListOfChangesWindow : Form
     {
         private DatabaseContext db;
+
         public ListOfChangesWindow()
         {
             InitializeComponent();
         }
+
         private void ListOfChangesWindow_Load(object sender, EventArgs e)
         {
             db = new DatabaseContext();
 
-            DataGridViewColumn[] columns = {
+            DataGridViewColumn[] columns =
+            {
                 new DataGridViewTextBoxColumn()
                 {
                     HeaderText = "ID",
@@ -48,26 +51,23 @@ namespace Sklep
                     HeaderText = "Ilość",
                     DataPropertyName = "Amount",
                     Width = 200
-
                 },
-                new DataGridViewTextBoxColumn()
-                {
-                    HeaderText = "Data",
-                    DataPropertyName = "Date",
-                }
+                new DataGridViewTextBoxColumn() { HeaderText = "Data", DataPropertyName = "Date", }
             };
 
-            var query = (from InventoryPosition in db.InventoryPositions
-                         join Product in db.Products on InventoryPosition.Id equals Product.PositionId
-                         join Change in db.InventoryChanges on Product.PositionId equals Change.PositionId
-                         select new
-                         {
-                             Id = Change.Id,
-                             Product = Product.LongName,
-                             Type = Change.Type,
-                             Amount = Change.Amount,
-                             Date = Change.Date,
-                         }).ToList();
+            var query = (
+                from InventoryPosition in db.InventoryPositions
+                join Product in db.Products on InventoryPosition.Id equals Product.PositionId
+                join Change in db.InventoryChanges on Product.PositionId equals Change.PositionId
+                select new
+                {
+                    Id = Change.Id,
+                    Product = Product.LongName,
+                    Type = Change.Type,
+                    Amount = Change.Amount,
+                    Date = Change.Date,
+                }
+            ).ToList();
 
             changesDataGridView.AutoGenerateColumns = false;
             changesDataGridView.Columns.Clear();
@@ -80,4 +80,3 @@ namespace Sklep
         }
     }
 }
-

@@ -10,11 +10,13 @@ namespace Sklep
     {
         public int? id { get; private set; }
         public string name { get; private set; }
+
         public IdNameListEntry(int? id, string name)
         {
             this.id = id;
             this.name = name;
         }
+
         public override string ToString()
         {
             return name;
