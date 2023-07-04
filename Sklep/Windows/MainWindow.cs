@@ -70,7 +70,7 @@ namespace Sklep
             {
                 sum += element.priceDecimal;
             }
-            sumOfProductPricesLabel.Text = sum.ToString() + " PLN";
+            sumOfProductPricesLabel.Text = sum.ToString("0.00") + " PLN";
         }
 
         private void addProductToList(string scannedBarcode)
