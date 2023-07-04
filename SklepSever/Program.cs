@@ -124,7 +124,7 @@ namespace SklepSever
             }
         }
 
-        static async Task ProcessClient(Socket client)
+        static void ProcessClient(Socket client)
         {
             byte[] bytes = new byte[32000];
             int numBytes = client.Receive(bytes);
