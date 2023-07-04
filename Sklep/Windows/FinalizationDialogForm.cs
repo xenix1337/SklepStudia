@@ -35,14 +35,12 @@ namespace Sklep
             return decimal.Round(numericUpDown1.Value - mainForm.sum, 2);
         }
 
-        private void InputDialogBox_Load(object sender, EventArgs e) { }
-
         private void acceptCashButton_Click(object sender, EventArgs e)
         {
             decimal change = calculateChange();
             if (change >= 0)
             {
-                MessageBox.Show(string.Format("Do wydania {0} PLN", change));
+                MessageBox.Show(string.Format("Do wydania {0} PLN", change),"Kwota do wydania");
                 Close();
             }
             else
