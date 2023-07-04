@@ -40,7 +40,8 @@ namespace Sklep
             decimal change = calculateChange();
             if (change >= 0)
             {
-                MessageBox.Show(string.Format("Do wydania {0} PLN", change),"Kwota do wydania");
+                MessageBox.Show(string.Format("Do wydania {0} PLN", change), "Kwota do wydania");
+                DialogResult = DialogResult.OK;
                 Close();
             }
             else
@@ -51,11 +52,13 @@ namespace Sklep
 
         private void exitDialogButton_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
         private void cancelCartButton_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             mainForm.clearCart();
             Close();
         }
