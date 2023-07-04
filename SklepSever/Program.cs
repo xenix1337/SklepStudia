@@ -124,7 +124,7 @@ namespace SklepSever
             while (true)
             {
                 Socket client = httpServer.Accept();
-                byte[] bytes = new byte[4096];
+                byte[] bytes = new byte[32000];
                 int numBytes = client.Receive(bytes);
                 string str = Encoding.ASCII.GetString(bytes, 0, numBytes);
 

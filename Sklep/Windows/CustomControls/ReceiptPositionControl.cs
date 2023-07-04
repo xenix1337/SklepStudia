@@ -30,7 +30,7 @@ namespace Sklep
             get { return _pricePerUnitDecimal; }
             set
             {
-                _pricePerUnit.Text = value.ToString() + " PLN";
+                _pricePerUnit.Text = value.ToString("0.00") + " PLN";
                 _pricePerUnitDecimal = value;
             }
         }
@@ -119,7 +119,7 @@ namespace Sklep
                 2,
                 MidpointRounding.ToPositiveInfinity
             );
-            _price.Text = priceDecimal.ToString() + " PLN";
+            _price.Text = priceDecimal.ToString("0.00") + " PLN";
             OnNumericUpDown_ValueChanged(e);
         }
         protected virtual void OnNumericUpDown_ValueChanged(EventArgs e)

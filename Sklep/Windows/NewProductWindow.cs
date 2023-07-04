@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Sklep.Database;
@@ -158,7 +159,7 @@ namespace Sklep
                 valid = false;
             if (price < 0)
                 valid = false;
-            if (Math.Abs(Math.Round(price * 100) - price * 100) > double.Epsilon * 10)
+            if (!Regex.IsMatch(cenaTextBox.Text, @"^\d+(\,\d{2})?$"))
                 valid = false;
 
             cenaTextBox.BackColor = valid ? defaultBackgroundColor : invalidBackgroundColor;
