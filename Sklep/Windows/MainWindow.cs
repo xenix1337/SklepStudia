@@ -221,6 +221,7 @@ namespace Sklep
             }
             var w = new FinalizationDialogForm(this);
             w.ShowDialog();
+            if (w.DialogResult == DialogResult.Cancel) return;
             dynamic finalizationResponse = ServerCommunication.FinalizeCart(cartList);
             if (finalizationResponse.result == "OK")
             {
