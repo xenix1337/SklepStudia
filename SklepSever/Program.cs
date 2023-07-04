@@ -167,7 +167,7 @@ namespace SklepSever
             while (true)
             {
                 Socket client = await httpServer.AcceptAsync();
-                Task.Run(() => ProcessClient(client));
+                _ = Task.Run(() => ProcessClient(client));
             }
         }
     }
