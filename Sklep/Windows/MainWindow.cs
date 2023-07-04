@@ -226,7 +226,8 @@ namespace Sklep
             if (finalizationResponse.result == "OK")
             {
                 MessageBox.Show(
-                    ReceiptPrinter.PrintReceipt(cartList, (string)finalizationResponse.receiptId)
+                    ReceiptPrinter.PrintReceipt(cartList, (string)finalizationResponse.receiptId),
+                    "Paragon"
                 );
                 clearCart();
             }
