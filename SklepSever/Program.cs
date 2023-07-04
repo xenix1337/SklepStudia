@@ -57,8 +57,19 @@ namespace SklepSever
             return JsonConvert.SerializeObject(new { result = "OK", receiptId = newReceipt.Id });
         }
 
+        static Dictionary<string, ProductReply> cachedProducts = new Dictionary<string, ProductReply>();
         static string GetProduct(string barcode)
         {
+            if (cachedProducts.ContainsKey(barcode))
+            {
+                var response = new
+                {
+                    result = "OK",
+                    data = cachedProducts[barcode]
+                };
+                return JsonConvert.SerializeObject(response);
+            }
+
             using (var context = new DatabaseContext())
             {
                 var product = context.Products
@@ -69,7 +80,7 @@ namespace SklepSever
                     var response = new
                     {
                         result = "OK",
-                        data = new
+                        data = new ProductReply
                         {
                             Id = product.Id,
                             ShortName = product.ShortName,
@@ -80,6 +91,7 @@ namespace SklepSever
                             Amount = 1
                         }
                     };
+                    cachedProducts[barcode] = response.data;
                     return JsonConvert.SerializeObject(response);
                 }
 
@@ -93,7 +105,7 @@ namespace SklepSever
                     var response = new
                     {
                         result = "OK",
-                        data = new
+                        data = new ProductReply
                         {
                             Id = product.Id,
                             ShortName = product.ShortName,
@@ -104,6 +116,7 @@ namespace SklepSever
                             Amount = productGroup.Amount
                         }
                     };
+                    cachedProducts[barcode] = response.data;
                     return JsonConvert.SerializeObject(response);
                 }
 
