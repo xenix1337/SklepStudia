@@ -12,8 +12,8 @@ using Sklep.Database;
 namespace Sklep.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230702192315_rename")]
-    partial class rename
+    [Migration("20230704161227_InitMerge")]
+    partial class InitMerge
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
