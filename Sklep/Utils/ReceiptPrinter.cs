@@ -13,7 +13,11 @@ namespace Sklep.Utils
         public static string PrintReceipt(Dictionary<string, decimal> cart, string receiptId)
         {
             decimal sum = 0;
-            string receiptPath = @"../../../Receipts/receipt" + receiptId + ".txt";
+            if(!Directory.Exists("Receipts"))
+            {
+                Directory.CreateDirectory("Receipts");
+            }
+            string receiptPath = @"Receipts/receipt" + receiptId + ".txt";
             string receiptContent = SettingsManager.current.receiptHeader + "\n";
             using (var db = new DatabaseContext())
             {

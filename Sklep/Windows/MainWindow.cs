@@ -141,6 +141,7 @@ namespace Sklep
                         var recepitPosition = new ReceiptPositionControl(product);
                         recepitPosition.Amount = amount;
                         recepitPosition.RemoveButtonClick += ReceiptPosition_RemoveButtonClick;
+                        recepitPosition.NumericUpDownValueChanged += ReceiptPosition_NumericUpDownValueChanged;
                         receiptPositionList.Add(product.Barcode, recepitPosition);
                         listOfProducts.Controls.Add(recepitPosition);
                         updateSum();
@@ -157,7 +158,11 @@ namespace Sklep
             updateSum();
             checkedIfAdult = false;
         }
-
+        
+        private void ReceiptPosition_NumericUpDownValueChanged(object sender, EventArgs e)
+        {
+            updateSum();
+        }
         private void ReceiptPosition_RemoveButtonClick(object sender, string barcode)
         {
             listOfProducts.Controls.Remove(receiptPositionList[barcode]);

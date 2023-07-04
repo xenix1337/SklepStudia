@@ -16,6 +16,8 @@ namespace Sklep
     public partial class ReceiptPositionControl : Control
     {
         public event EventHandler<string> RemoveButtonClick;
+        public event EventHandler NumericUpDownValueChanged;
+
         private Label _productLongName;
         private Label _pricePerUnit;
         private decimal _pricePerUnitDecimal;
@@ -118,8 +120,12 @@ namespace Sklep
                 MidpointRounding.ToPositiveInfinity
             );
             _price.Text = priceDecimal.ToString() + " PLN";
+            OnNumericUpDown_ValueChanged(e);
         }
-
+        protected virtual void OnNumericUpDown_ValueChanged(EventArgs e)
+        {
+            NumericUpDownValueChanged?.Invoke(this, e);
+        }
         protected virtual void OnRemoveButtonClick(string barcode)
         {
             RemoveButtonClick?.Invoke(this, barcode);

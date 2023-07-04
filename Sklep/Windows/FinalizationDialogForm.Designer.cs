@@ -85,7 +85,7 @@
             cancelCartButton.UseVisualStyleBackColor = true;
             cancelCartButton.Click += cancelCartButton_Click;
             // 
-            // InputDialogBox
+            // FinalizationDialogForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,10 +95,9 @@
             Controls.Add(acceptCashButton);
             Controls.Add(headerLabel);
             Controls.Add(numericUpDown1);
-            Name = "InputDialogBox";
+            Name = "FinalizationDialogForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            Text = "InputDialogBox";
-            Load += InputDialogBox_Load;
+            Text = "Finalizacja";
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
             PerformLayout();
