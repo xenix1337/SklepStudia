@@ -28,7 +28,7 @@ namespace Sklep.Utils
             using (TcpClient client = new TcpClient(address, port))
             {
                 string message = JsonConvert.SerializeObject(requestJSON);
-                byte[] data = Encoding.ASCII.GetBytes(message);
+                byte[] data = Encoding.UTF8.GetBytes(message);
 
                 NetworkStream stream = client.GetStream();
                 stream.Write(data, 0, data.Length);
@@ -36,7 +36,7 @@ namespace Sklep.Utils
 
                 int bytes = stream.Read(data, 0, data.Length);
                 client.Close();
-                return Encoding.ASCII.GetString(data, 0, bytes);
+                return Encoding.UTF8.GetString(data, 0, bytes);
             }
         }
     }
