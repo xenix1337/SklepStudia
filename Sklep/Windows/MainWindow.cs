@@ -155,6 +155,7 @@ namespace Sklep
         {
             listOfProducts.Controls.Clear();
             receiptPositionList.Clear();
+            cartList.Clear();
             updateSum();
             checkedIfAdult = false;
         }
