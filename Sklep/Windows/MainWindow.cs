@@ -57,7 +57,7 @@ namespace Sklep
             barCodeTextBox.Invoke(new MethodInvoker(delegate ()
             {
                 if (!CanFocus) return;
-                
+
                 barCodeTextBox.Text = code;
                 addProductToList(code);
             }));
@@ -158,7 +158,7 @@ namespace Sklep
             updateSum();
             checkedIfAdult = false;
         }
-        
+
         private void ReceiptPosition_NumericUpDownValueChanged(object sender, EventArgs e)
         {
             updateSum();
@@ -250,6 +250,12 @@ namespace Sklep
         private void changeStateToolStipMenuItem_Click(object sender, EventArgs e)
         {
             var w = new InventoryChangeWindow();
+            w.ShowDialog();
+        }
+
+        private void listaKategoriiProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListProductCategoriesWindow();
             w.ShowDialog();
         }
     }

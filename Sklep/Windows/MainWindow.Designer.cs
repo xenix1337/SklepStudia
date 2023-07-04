@@ -55,6 +55,7 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
+            listaKategoriiProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -133,7 +134,7 @@ namespace Sklep
             // 
             // produktyToolStripMenuItem
             // 
-            produktyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { zarejestrujNowyProduktToolStripMenuItem, listaProduktówToolStripMenuItem, zarejestrujGrupęProduktówToolStripMenuItem, listaGrupProduktówToolStripMenuItem });
+            produktyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { zarejestrujNowyProduktToolStripMenuItem, listaProduktówToolStripMenuItem, zarejestrujGrupęProduktówToolStripMenuItem, listaGrupProduktówToolStripMenuItem, listaKategoriiProduktówToolStripMenuItem });
             produktyToolStripMenuItem.Name = "produktyToolStripMenuItem";
             produktyToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             produktyToolStripMenuItem.Text = "Produkty";
@@ -182,21 +183,21 @@ namespace Sklep
             // stanMagazynuToolStripMenuItem
             // 
             stanMagazynuToolStripMenuItem.Name = "stanMagazynuToolStripMenuItem";
-            stanMagazynuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            stanMagazynuToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             stanMagazynuToolStripMenuItem.Text = "Stan magazynu";
             stanMagazynuToolStripMenuItem.Click += stanMagazynuToolStripMenuItem_Click;
             // 
             // historiaZmianToolStripMenuItem
             // 
             historiaZmianToolStripMenuItem.Name = "historiaZmianToolStripMenuItem";
-            historiaZmianToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            historiaZmianToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             historiaZmianToolStripMenuItem.Text = "Historia zmian";
             historiaZmianToolStripMenuItem.Click += historiaZmianToolStripMenuItem_Click;
             // 
             // changeStateToolStipMenuItem
             // 
             changeStateToolStipMenuItem.Name = "changeStateToolStipMenuItem";
-            changeStateToolStipMenuItem.Size = new System.Drawing.Size(224, 26);
+            changeStateToolStipMenuItem.Size = new System.Drawing.Size(216, 26);
             changeStateToolStipMenuItem.Text = "Wprowadź zmianę";
             changeStateToolStipMenuItem.Click += changeStateToolStipMenuItem_Click;
             // 
@@ -251,6 +252,13 @@ namespace Sklep
             sumOfProductPricesLabel.TabIndex = 7;
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // listaKategoriiProduktówToolStripMenuItem
+            // 
+            listaKategoriiProduktówToolStripMenuItem.Name = "listaKategoriiProduktówToolStripMenuItem";
+            listaKategoriiProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
+            listaKategoriiProduktówToolStripMenuItem.Text = "Lista kategorii produktów";
+            listaKategoriiProduktówToolStripMenuItem.Click += listaKategoriiProduktówToolStripMenuItem_Click;
             // 
             // MainWindow
             // 
@@ -312,6 +320,7 @@ namespace Sklep
         private System.Windows.Forms.ToolStripMenuItem stanMagazynuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem historiaZmianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeStateToolStipMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem listaKategoriiProduktówToolStripMenuItem;
     }
 }
 
