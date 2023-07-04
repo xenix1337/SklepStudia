@@ -124,7 +124,37 @@ namespace SklepSever
             }
         }
 
-        static void Main(string[] args)
+        static async Task ProcessClient(Socket client)
+        {
+            byte[] bytes = new byte[32000];
+            int numBytes = client.Receive(bytes);
+            string str = Encoding.ASCII.GetString(bytes, 0, numBytes);
+
+            dynamic? jsonRequest = JsonConvert.DeserializeObject(str);
+            if (jsonRequest == null)
+                return;
+
+            string command = jsonRequest["command"].ToString();
+            dynamic data = jsonRequest["data"];
+            if (command == "scanProduct")
+            {
+                string resStr = GetProduct(data["barcode"].ToString());
+                byte[] resData = Encoding.ASCII.GetBytes(resStr);
+
+                client.SendTo(resData, client.RemoteEndPoint);
+            }
+            if (command == "finalizeCart")
+            {
+                var cart = data.ToObject<Dictionary<string, decimal>>();
+                string resStr = finalizeCart(cart);
+                byte[] resData = Encoding.ASCII.GetBytes(resStr);
+
+                client.SendTo(resData, client.RemoteEndPoint);
+            }
+            client.Close();
+        }
+
+        static async Task Main(string[] args)
         {
             Console.WriteLine("Starting server...");
             Socket httpServer = new Socket(SocketType.Stream, ProtocolType.Tcp);
@@ -136,33 +166,8 @@ namespace SklepSever
             Console.WriteLine("Listening on port {0}", serverPort);
             while (true)
             {
-                Socket client = httpServer.Accept();
-                byte[] bytes = new byte[32000];
-                int numBytes = client.Receive(bytes);
-                string str = Encoding.ASCII.GetString(bytes, 0, numBytes);
-
-                dynamic? jsonRequest = JsonConvert.DeserializeObject(str);
-                if (jsonRequest == null)
-                    continue;
-
-                string command = jsonRequest.command.ToString();
-                dynamic data = jsonRequest.data;
-                if (command == "scanProduct")
-                {
-                    string resStr = GetProduct(data.barcode.ToString());
-                    byte[] resData = Encoding.ASCII.GetBytes(resStr);
-
-                    client.SendTo(resData, client.RemoteEndPoint);
-                }
-                if (command == "finalizeCart")
-                {
-                    var cart = data.ToObject<Dictionary<string, decimal>>();
-                    string resStr = finalizeCart(cart);
-                    byte[] resData = Encoding.ASCII.GetBytes(resStr);
-
-                    client.SendTo(resData, client.RemoteEndPoint);
-                }
-                client.Close();
+                Socket client = await httpServer.AcceptAsync();
+                Task.Run(() => ProcessClient(client));
             }
         }
     }

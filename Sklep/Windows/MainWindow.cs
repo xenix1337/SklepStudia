@@ -13,6 +13,8 @@ using System.IO;
 using System.Drawing;
 using AForge.Imaging.Filters;
 using Sklep.Database.Models;
+using ZXing.QrCode.Internal;
+using System.Diagnostics;
 
 namespace Sklep
 {
@@ -80,7 +82,7 @@ namespace Sklep
 
             dynamic productObject = ServerCommunication.ScanProduct(scannedBarcode);
 
-            if (productObject.result != "OK")
+            if (productObject["result"] != "OK")
             {
                 errorSound.Play();
                 statusStripLabel.Text = "Nieznany produkt!";
@@ -88,12 +90,12 @@ namespace Sklep
             }
 
             Product product = new Product();
-            product.ShortName = productObject.data.ShortName;
-            product.LongName = productObject.data.LongName;
-            product.Barcode = productObject.data.Barcode;
-            product.Price = productObject.data.Price;
-            bool adultOnly = productObject.data.AdultOnly;
-            decimal amount = productObject.data.Amount;
+            product.ShortName = productObject["data"]["ShortName"];
+            product.LongName = productObject["data"]["LongName"];
+            product.Barcode = productObject["data"]["Barcode"];
+            product.Price = productObject["data"]["Price"];
+            bool adultOnly = productObject["data"]["AdultOnly"];
+            decimal amount = productObject["data"]["Amount"];
             if (adultOnly == true && !checkedIfAdult)
             {
                 var customerAdult = MessageBox.Show(
