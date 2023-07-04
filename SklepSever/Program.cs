@@ -128,7 +128,7 @@ namespace SklepSever
         {
             byte[] bytes = new byte[32000];
             int numBytes = client.Receive(bytes);
-            string str = Encoding.ASCII.GetString(bytes, 0, numBytes);
+            string str = Encoding.UTF8.GetString(bytes, 0, numBytes);
 
             dynamic? jsonRequest = JsonConvert.DeserializeObject(str);
             if (jsonRequest == null)
@@ -139,7 +139,7 @@ namespace SklepSever
             if (command == "scanProduct")
             {
                 string resStr = GetProduct(data["barcode"].ToString());
-                byte[] resData = Encoding.ASCII.GetBytes(resStr);
+                byte[] resData = Encoding.UTF8.GetBytes(resStr);
 
                 client.SendTo(resData, client.RemoteEndPoint);
             }
