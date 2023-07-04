@@ -45,8 +45,23 @@ namespace Sklep
 
         private void addProductButton_Click(object sender, EventArgs e)
         {
+
+            InventoryPosition newPosition = new InventoryPosition
+            {
+                Amount = AmountNumericUpDown.Value,
+                Rack = (int)rackNumericUpDown.Value,
+                Shelf = (int)shelfNumericUpDown.Value,
+            };
+            InventoryChange newIventoryChange = new InventoryChange
+            {
+                Position = newPosition,
+                Amount = AmountNumericUpDown.Value,
+                Date = DateTime.Now.ToUniversalTime(),
+                Type = "Dostawa"
+            };
             Product newProduct = new Product
             {
+                Position = newPosition,
                 Barcode = kodKreskowyTextBox.Text,
                 ShortName = nazwaKrotkaTextBox.Text,
                 LongName = nazwaDlugaTextBox.Text,
@@ -54,8 +69,11 @@ namespace Sklep
                 CategoryId = (kategoriaComboBox.SelectedItem as ProductCategory)?.Id
             };
 
+
             using (var db = new DatabaseContext())
             {
+                db.InventoryPositions.Add(newPosition);
+                db.InventoryChanges.Add(newIventoryChange);
                 db.Products.Add(newProduct);
                 db.SaveChanges();
             }
