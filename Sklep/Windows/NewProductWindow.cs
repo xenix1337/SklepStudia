@@ -52,7 +52,7 @@ namespace Sklep
                 Rack = (int)rackNumericUpDown.Value,
                 Shelf = (int)shelfNumericUpDown.Value,
             };
-            InventoryChange newIventoryChange = new InventoryChange
+            InventoryChange newInventoryChange = new InventoryChange
             {
                 Position = newPosition,
                 Amount = AmountNumericUpDown.Value,
@@ -73,7 +73,7 @@ namespace Sklep
             using (var db = new DatabaseContext())
             {
                 db.InventoryPositions.Add(newPosition);
-                db.InventoryChanges.Add(newIventoryChange);
+                db.InventoryChanges.Add(newInventoryChange);
                 db.Products.Add(newProduct);
                 db.SaveChanges();
             }
