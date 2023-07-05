@@ -53,13 +53,14 @@ namespace Sklep
         }
 
         private void BarcodeScanner_CodeScanned(object sender, string code)
-        {
+        {   
             barCodeTextBox.Invoke(new MethodInvoker(delegate ()
             {
                 if (!CanFocus) return;
                 
                 barCodeTextBox.Text = code;
                 addProductToList(code);
+
             }));
         }
 
@@ -86,7 +87,6 @@ namespace Sklep
                 statusStripLabel.Text = "Nieznany produkt!";
                 return;
             }
-
             Product product = new Product();
             product.ShortName = productObject.data.ShortName;
             product.LongName = productObject.data.LongName;
@@ -102,6 +102,7 @@ namespace Sklep
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
+                Program.barcodeScanner.lastScanTime = DateTime.Now;
                 if (customerAdult == DialogResult.Yes)
                     checkedIfAdult = true;
                 else
@@ -115,7 +116,6 @@ namespace Sklep
                     return;
                 }
             }
-
             ReceiptPositionControl position;
             if (receiptPositionList.TryGetValue(product.Barcode, out position))
             {
@@ -168,6 +168,7 @@ namespace Sklep
         {
             listOfProducts.Controls.Remove(receiptPositionList[barcode]);
             receiptPositionList.Remove(barcode);
+            cartList.Remove(barcode);
             checkedIfAdult = false;
             updateSum();
         }
@@ -216,6 +217,7 @@ namespace Sklep
 
         private void finalizationButton_Click(object sender, EventArgs e)
         {
+             
             if (receiptPositionList.Count == 0)
             {
                 return;

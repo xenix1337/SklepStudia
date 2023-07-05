@@ -19,7 +19,7 @@ namespace Sklep.Utils
         public event EventHandler<string> CodeScanned;
         public Stack<PictureBox> pictureBoxes = new Stack<PictureBox>();
         public int cameraIndex = 0;
-        private DateTime lastScanTime = DateTime.Now;
+        public DateTime lastScanTime = DateTime.Now;
         private string lastScannedBarcode = "";
 
         FilterInfoCollection filterInfoCollection;
