@@ -26,7 +26,7 @@ namespace Sklep.Utils
                     var product = db.Products.SingleOrDefault(p => p.Barcode == item.Key);
                     receiptContent +=
                         product.ShortName
-                        + "\t\t\t\t\t"
+                        + "\t\t\t"
                         + item.Value
                         + "x "
                         + product.Price
@@ -34,7 +34,7 @@ namespace Sklep.Utils
                     sum += item.Value * (decimal)product.Price;
                 }
             }
-            receiptContent += "SUMA" + "\t\t\t\t\t\t\t" + sum + "PLN\n";
+            receiptContent += "SUMA" + "\t\t\t\t\t\t" + sum + "PLN\n";
             receiptContent += SettingsManager.current.receiptFooter;
             using (StreamWriter sw = File.CreateText(receiptPath))
             {

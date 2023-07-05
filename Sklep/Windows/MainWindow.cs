@@ -13,6 +13,8 @@ using System.IO;
 using System.Drawing;
 using AForge.Imaging.Filters;
 using Sklep.Database.Models;
+using ZXing.QrCode.Internal;
+using System.Diagnostics;
 
 namespace Sklep
 {
@@ -57,7 +59,7 @@ namespace Sklep
             barCodeTextBox.Invoke(new MethodInvoker(delegate ()
             {
                 if (!CanFocus) return;
-                
+
                 barCodeTextBox.Text = code;
                 addProductToList(code);
 
@@ -71,7 +73,7 @@ namespace Sklep
             {
                 sum += element.priceDecimal;
             }
-            sumOfProductPricesLabel.Text = sum.ToString() + " PLN";
+            sumOfProductPricesLabel.Text = sum.ToString("0.00") + " PLN";
         }
 
         private void addProductToList(string scannedBarcode)
@@ -81,19 +83,19 @@ namespace Sklep
 
             dynamic productObject = ServerCommunication.ScanProduct(scannedBarcode);
 
-            if (productObject.result != "OK")
+            if (productObject["result"] != "OK")
             {
                 errorSound.Play();
                 statusStripLabel.Text = "Nieznany produkt!";
                 return;
             }
             Product product = new Product();
-            product.ShortName = productObject.data.ShortName;
-            product.LongName = productObject.data.LongName;
-            product.Barcode = productObject.data.Barcode;
-            product.Price = productObject.data.Price;
-            bool adultOnly = productObject.data.AdultOnly;
-            decimal amount = productObject.data.Amount;
+            product.ShortName = productObject["data"]["ShortName"];
+            product.LongName = productObject["data"]["LongName"];
+            product.Barcode = productObject["data"]["Barcode"];
+            product.Price = productObject["data"]["Price"];
+            bool adultOnly = productObject["data"]["AdultOnly"];
+            decimal amount = productObject["data"]["Amount"];
             if (adultOnly == true && !checkedIfAdult)
             {
                 var customerAdult = MessageBox.Show(
@@ -159,7 +161,7 @@ namespace Sklep
             updateSum();
             checkedIfAdult = false;
         }
-        
+
         private void ReceiptPosition_NumericUpDownValueChanged(object sender, EventArgs e)
         {
             updateSum();
@@ -229,7 +231,8 @@ namespace Sklep
             if (finalizationResponse.result == "OK")
             {
                 MessageBox.Show(
-                    ReceiptPrinter.PrintReceipt(cartList, (string)finalizationResponse.receiptId)
+                    ReceiptPrinter.PrintReceipt(cartList, (string)finalizationResponse.receiptId),
+                    "Paragon"
                 );
                 clearCart();
             }
@@ -254,6 +257,12 @@ namespace Sklep
         private void changeStateToolStipMenuItem_Click(object sender, EventArgs e)
         {
             var w = new InventoryChangeWindow();
+            w.ShowDialog();
+        }
+
+        private void listaKategoriiProduktówToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new ListProductCategoriesWindow();
             w.ShowDialog();
         }
     }
