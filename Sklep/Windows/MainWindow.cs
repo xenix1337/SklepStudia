@@ -104,6 +104,7 @@ namespace Sklep
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
+                Program.barcodeScanner.lastScanTime = DateTime.Now;
                 if (customerAdult == DialogResult.Yes)
                     checkedIfAdult = true;
                 else
@@ -170,6 +171,7 @@ namespace Sklep
         {
             listOfProducts.Controls.Remove(receiptPositionList[barcode]);
             receiptPositionList.Remove(barcode);
+            cartList.Remove(barcode);
             checkedIfAdult = false;
             updateSum();
         }
