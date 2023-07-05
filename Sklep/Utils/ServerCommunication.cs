@@ -25,10 +25,8 @@ namespace Sklep.Utils
         {
             string address = SettingsManager.current.serverIP;
             int port = SettingsManager.current.serverPort;
-
-                var client = new TcpClient(AddressFamily.InterNetwork);
-            
-                client.Connect(address, port);
+            using (TcpClient client = new TcpClient(address, port))
+            {
                 string message = JsonConvert.SerializeObject(requestJSON);
                 byte[] data = Encoding.ASCII.GetBytes(message);
 
@@ -39,7 +37,7 @@ namespace Sklep.Utils
                 int bytes = stream.Read(data, 0, data.Length);
                 client.Close();
                 return Encoding.ASCII.GetString(data, 0, bytes);
-            
+            }
         }
     }
 }
