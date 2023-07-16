@@ -265,5 +265,11 @@ namespace Sklep
             var w = new ListProductCategoriesWindow();
             w.ShowDialog();
         }
+
+        private void sprzedażWDniachToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new SalesReportWindow();
+            w.ShowDialog();
+        }
     }
 }
