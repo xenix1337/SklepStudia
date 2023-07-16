@@ -43,6 +43,7 @@ namespace Sklep
             listaProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             zarejestrujGrupęProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listaGrupProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            listaKategoriiProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             raportyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             inwenatrzToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             stanMagazynuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@ namespace Sklep
             listOfProducts = new System.Windows.Forms.FlowLayoutPanel();
             sumLabel = new System.Windows.Forms.Label();
             sumOfProductPricesLabel = new System.Windows.Forms.Label();
-            listaKategoriiProduktówToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            sprzedażWDniachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
@@ -167,8 +168,16 @@ namespace Sklep
             listaGrupProduktówToolStripMenuItem.Text = "Lista grup produktów";
             listaGrupProduktówToolStripMenuItem.Click += listaGrupProduktówToolStripMenuItem_Click;
             // 
+            // listaKategoriiProduktówToolStripMenuItem
+            // 
+            listaKategoriiProduktówToolStripMenuItem.Name = "listaKategoriiProduktówToolStripMenuItem";
+            listaKategoriiProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
+            listaKategoriiProduktówToolStripMenuItem.Text = "Lista kategorii produktów";
+            listaKategoriiProduktówToolStripMenuItem.Click += listaKategoriiProduktówToolStripMenuItem_Click;
+            // 
             // raportyToolStripMenuItem
             // 
+            raportyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { sprzedażWDniachToolStripMenuItem });
             raportyToolStripMenuItem.Name = "raportyToolStripMenuItem";
             raportyToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             raportyToolStripMenuItem.Text = "Raporty";
@@ -218,10 +227,6 @@ namespace Sklep
             statusStripLabel.Size = new System.Drawing.Size(205, 20);
             statusStripLabel.Text = "Trwa łączenie z bazą danych...";
             // 
-            // barcodeScannerBindingSource
-            // 
-            barcodeScannerBindingSource.DataSource = typeof(Utils.BarcodeScanner);
-            // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -253,12 +258,12 @@ namespace Sklep
             sumOfProductPricesLabel.Text = "0 PLN";
             sumOfProductPricesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // listaKategoriiProduktówToolStripMenuItem
+            // sprzedażWDniachToolStripMenuItem
             // 
-            listaKategoriiProduktówToolStripMenuItem.Name = "listaKategoriiProduktówToolStripMenuItem";
-            listaKategoriiProduktówToolStripMenuItem.Size = new System.Drawing.Size(281, 26);
-            listaKategoriiProduktówToolStripMenuItem.Text = "Lista kategorii produktów";
-            listaKategoriiProduktówToolStripMenuItem.Click += listaKategoriiProduktówToolStripMenuItem_Click;
+            sprzedażWDniachToolStripMenuItem.Name = "sprzedażWDniachToolStripMenuItem";
+            sprzedażWDniachToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            sprzedażWDniachToolStripMenuItem.Text = "Sprzedaż w dniach";
+            sprzedażWDniachToolStripMenuItem.Click += sprzedażWDniachToolStripMenuItem_Click;
             // 
             // MainWindow
             // 
@@ -321,6 +326,7 @@ namespace Sklep
         private System.Windows.Forms.ToolStripMenuItem historiaZmianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeStateToolStipMenuItem;
         private System.Windows.Forms.ToolStripMenuItem listaKategoriiProduktówToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sprzedażWDniachToolStripMenuItem;
     }
 }
 
